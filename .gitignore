@@ -1,0 +1,17 @@
+# Ignore build output directories
+[Oo]bj/
+[Bb]in/
+
+# Ignore Visual Studio temporary files
+*.user
+*.suo
+.vs/
+
+# Ignore NuGet packages
+*.log
+*.cache
+*.Test.xml
+
+# Ignore NuGet package folders
+packages/
+*.nupkg
