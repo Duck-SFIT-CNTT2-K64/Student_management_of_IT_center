@@ -36,9 +36,9 @@ Navigate to the Student_manager folder (or your solution's folder name) and doub
 ### Step 3: Restore NuGet Packages
 Visual Studio will usually restore NuGet packages (like AntdUI, Entity Framework, etc.) automatically when you open the project. If not:
 
-1. **Go to Tools -> NuGet Package Manager -> Package Manager Console.
+1. **Go to Tools -> NuGet Package Manager -> Package Manager Console.**
 
-2. **Type the following command and press Enter:
+2. **Type the following command and press Enter:**
 ```bash
 Update-Package -Reinstall
 ```
@@ -51,34 +51,34 @@ This project uses either a SQL script or a database backup file (.bak) to create
 
 #### Method 1: Run SQL Script (Recommended)
 
-1. **Open SSMS (SQL Server Management Studio) and connect to your SQL Server instance.
+1. **Open SSMS (SQL Server Management Studio) and connect to your SQL Server instance.**
 
-2. **Right-click on Databases -> New Database.
+2. **Right-click on Databases -> New Database.**
 
-3. **Set a name for your database, e.g., IC_StudentManagement.
+3. **Set a name for your database, e.g., IC_StudentManagement.**
 
-4. **Open the database script file (e.g., Database/script.sql - you need to provide this file) using SSMS.
+4. **Open the database script file (e.g., Database/script.sql - you need to provide this file) using SSMS.**
 
-5. **Ensure you have selected the IC_StudentManagement database in the toolbar, then press Execute to run the script, which will create tables and insert data.
+5. **Ensure you have selected the IC_StudentManagement database in the toolbar, then press Execute to run the script, which will create tables and insert data.**
 
 #### Method 2: Restore from .bak file
 
-1. **Open SSMS and connect to your SQL Server instance.
+1. **Open SSMS and connect to your SQL Server instance.**
 
-2. **Right-click on Databases -> Restore Database....
+2. **Right-click on Databases -> Restore Database....**
 
-3. **Select Device and navigate to the .bak file you provided (e.g., Database/QLSV.bak).
+3. **Select Device and navigate to the .bak file you provided (e.g., Database/QLSV.bak).**
 
-4. **In the Database destination field, type the desired database name (e.g., IC_StudentManagement) and click OK.
+4. **In the Database destination field, type the desired database name (e.g., IC_StudentManagement) and click OK.**
 
 ### Step 5: Update the Connection String
 After creating the database, you must update the connection string in the project to point to your database.
 
-1. **In Visual Studio, open the App.config file (or Settings.settings).
+1. **In Visual Studio, open the App.config file (or Settings.settings).**
 
-2. **Find the <connectionStrings> tag.
+2. **Find the <connectionStrings> tag.**
 
-3. **You will see a connection string; modify it accordingly:
+3. **You will see a connection string; modify it accordingly:**
 ```bash
 <connectionStrings>
   <add name="MyConnectionString" 
