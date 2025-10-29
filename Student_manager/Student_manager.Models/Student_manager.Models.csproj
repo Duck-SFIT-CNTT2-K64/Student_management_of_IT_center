@@ -49,7 +49,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionLog.cs" />
+    <Compile Include="Attendance.cs" />
+    <Compile Include="Class.cs" />
+    <Compile Include="ClassSchedule.cs" />
+    <Compile Include="Course.cs" />
+    <Compile Include="Enrollment.cs" />
+    <Compile Include="Notification.cs" />
+    <Compile Include="NotificationRecipient.cs" />
+    <Compile Include="Permission.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Receipt.cs" />
+    <Compile Include="Role.cs" />
+    <Compile Include="RolePermission.cs" />
+    <Compile Include="Room.cs" />
+    <Compile Include="Score.cs" />
+    <Compile Include="ScoreType.cs" />
+    <Compile Include="Student.cs" />
+    <Compile Include="StudentStatus.cs" />
+    <Compile Include="Teacher.cs" />
+    <Compile Include="Tuition.cs" />
+    <Compile Include="User.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
