@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{05E70978-498F-4EA9-89ED-A242B9713F91}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <RootNamespace>Student_manager</RootNamespace>
-    <AssemblyName>Student_manager</AssemblyName>
+    <ProjectGuid>{FCA8A40E-61A9-4CD4-ADCC-AF4DCE38A81D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Student_manager.BLL</RootNamespace>
+    <AssemblyName>Student_manager.BLL</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,13 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -75,6 +71,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Student_manager.DAL\Student_manager.DAL.csproj">
+      <Project>{b0e0cf55-de0d-416f-92d4-004849847572}</Project>
+      <Name>Student_manager.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Student_manager.Models\Student_manager.Models.csproj">
+      <Project>{5df9e612-b5c6-46c9-88ef-6c897089eae1}</Project>
+      <Name>Student_manager.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

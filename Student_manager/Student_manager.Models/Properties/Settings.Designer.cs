@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Student_manager.Properties
+namespace Student_manager.Models.Properties
 {
 
 

@@ -1,6 +1,6 @@
-﻿namespace Student_manager
+﻿namespace Student_manager.UI
 {
-    partial class Form1
+    partial class frmMain
     {
         /// <summary>
         /// Required designer variable.
