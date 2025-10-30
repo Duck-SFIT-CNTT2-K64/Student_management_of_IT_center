@@ -393,9 +393,11 @@ namespace Student_manager.UI
                     MessageBox.Show("Đăng nhập thành công", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     // hide login after success
                     LoginPanel.Visible = false;
-                    if (shadowPanel != null) shadowPanel.Visible = false;
-                    LoginPanel.BackColor = Color.Transparent;
-                    btnLogin.Visible = true;
+
+
+                    //if (shadowPanel != null) shadowPanel.Visible = false;
+                    //LoginPanel.BackColor = Color.Transparent;
+                    //btnLogin.Visible = true;
                 }
                 else
                 {
@@ -444,6 +446,11 @@ namespace Student_manager.UI
         }
 
         private void btnCheck_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panelHeader_Click(object sender, EventArgs e)
         {
 
         }
