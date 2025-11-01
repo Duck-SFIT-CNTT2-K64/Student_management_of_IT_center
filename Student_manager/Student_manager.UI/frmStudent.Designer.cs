@@ -77,7 +77,7 @@
             this.dgvQLSV.Name = "dgvQLSV";
             this.dgvQLSV.RowHeadersWidth = 51;
             this.dgvQLSV.RowTemplate.Height = 24;
-            this.dgvQLSV.Size = new System.Drawing.Size(1206, 135);
+            this.dgvQLSV.Size = new System.Drawing.Size(1127, 135);
             this.dgvQLSV.TabIndex = 4;
             this.dgvQLSV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvQLSV_CellContentClick);
             // 
@@ -88,7 +88,7 @@
             this.groupBox2.Controls.Add(this.textBox1);
             this.groupBox2.Location = new System.Drawing.Point(12, 103);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1219, 82);
+            this.groupBox2.Size = new System.Drawing.Size(1140, 82);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Search Bar";
@@ -123,7 +123,7 @@
             this.groupBox3.Controls.Add(this.btnThem);
             this.groupBox3.Location = new System.Drawing.Point(12, 191);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(1219, 89);
+            this.groupBox3.Size = new System.Drawing.Size(1140, 89);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Operation";
@@ -230,7 +230,7 @@
             this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Location = new System.Drawing.Point(12, 493);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(1219, 151);
+            this.groupBox4.Size = new System.Drawing.Size(1140, 151);
             this.groupBox4.TabIndex = 6;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Student Information";
@@ -385,7 +385,7 @@
             this.gbdgv.Controls.Add(this.dgvQLSV);
             this.gbdgv.Location = new System.Drawing.Point(12, 286);
             this.gbdgv.Name = "gbdgv";
-            this.gbdgv.Size = new System.Drawing.Size(1219, 201);
+            this.gbdgv.Size = new System.Drawing.Size(1140, 201);
             this.gbdgv.TabIndex = 7;
             this.gbdgv.TabStop = false;
             this.gbdgv.Text = "Student";
@@ -397,7 +397,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(343, 26);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(631, 71);
+            this.label1.Size = new System.Drawing.Size(552, 71);
             this.label1.TabIndex = 8;
             this.label1.Text = "Student Management";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -408,7 +408,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(1243, 644);
+            this.ClientSize = new System.Drawing.Size(1164, 644);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.gbdgv);
             this.Controls.Add(this.groupBox4);

@@ -56,6 +56,12 @@
     <Compile Include="frmDashBoard.Designer.cs">
       <DependentUpon>frmDashBoard.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmEnrollment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEnrollment.Designer.cs">
+      <DependentUpon>frmEnrollment.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,8 +86,17 @@
     <Compile Include="frmStudy.Designer.cs">
       <DependentUpon>frmStudy.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmTuitions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTuitions.Designer.cs">
+      <DependentUpon>frmTuitions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmEnrollment.resx">
+      <DependentUpon>frmEnrollment.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -93,6 +108,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmStudy.resx">
       <DependentUpon>frmStudy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTuitions.resx">
+      <DependentUpon>frmTuitions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
