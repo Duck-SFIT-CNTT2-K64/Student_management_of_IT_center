@@ -30,19 +30,19 @@
         {
             this.label1 = new AntdUI.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dgvEnroll = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtStudentId = new System.Windows.Forms.TextBox();
-            this.txtClassId = new System.Windows.Forms.TextBox();
-            this.btnEnroll = new AntdUI.Button();
-            this.btnClear = new AntdUI.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.EnrolDate = new AntdUI.DatePicker();
+            this.btnClear = new AntdUI.Button();
+            this.btnEnroll = new AntdUI.Button();
+            this.txtClassId = new System.Windows.Forms.TextBox();
+            this.txtStudentId = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEnroll)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -68,6 +68,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Enrollment Information";
             // 
+            // dgvEnroll
+            // 
+            this.dgvEnroll.BackgroundColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.dgvEnroll.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvEnroll.Location = new System.Drawing.Point(3, 23);
+            this.dgvEnroll.Name = "dgvEnroll";
+            this.dgvEnroll.RowHeadersWidth = 51;
+            this.dgvEnroll.RowTemplate.Height = 24;
+            this.dgvEnroll.Size = new System.Drawing.Size(862, 433);
+            this.dgvEnroll.TabIndex = 0;
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.EnrolDate);
@@ -84,72 +95,15 @@
             this.groupBox2.Size = new System.Drawing.Size(868, 179);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Searching";
             // 
-            // dgvEnroll
+            // EnrolDate
             // 
-            this.dgvEnroll.BackgroundColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.dgvEnroll.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEnroll.Location = new System.Drawing.Point(3, 23);
-            this.dgvEnroll.Name = "dgvEnroll";
-            this.dgvEnroll.RowHeadersWidth = 51;
-            this.dgvEnroll.RowTemplate.Height = 24;
-            this.dgvEnroll.Size = new System.Drawing.Size(862, 433);
-            this.dgvEnroll.TabIndex = 0;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(28, 44);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(76, 18);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Student ID";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(28, 92);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(64, 18);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Class ID";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(479, 47);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(81, 18);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Enroll Date";
-            // 
-            // txtStudentId
-            // 
-            this.txtStudentId.Location = new System.Drawing.Point(117, 44);
-            this.txtStudentId.Name = "txtStudentId";
-            this.txtStudentId.Size = new System.Drawing.Size(193, 22);
-            this.txtStudentId.TabIndex = 3;
-            // 
-            // txtClassId
-            // 
-            this.txtClassId.Location = new System.Drawing.Point(117, 92);
-            this.txtClassId.Name = "txtClassId";
-            this.txtClassId.Size = new System.Drawing.Size(193, 22);
-            this.txtClassId.TabIndex = 4;
-            // 
-            // btnEnroll
-            // 
-            this.btnEnroll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.btnEnroll.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEnroll.Location = new System.Drawing.Point(504, 107);
-            this.btnEnroll.Name = "btnEnroll";
-            this.btnEnroll.Size = new System.Drawing.Size(127, 47);
-            this.btnEnroll.TabIndex = 6;
-            this.btnEnroll.Text = "Enroll";
-            this.btnEnroll.Type = AntdUI.TTypeMini.Primary;
+            this.EnrolDate.Location = new System.Drawing.Point(586, 34);
+            this.EnrolDate.Name = "EnrolDate";
+            this.EnrolDate.Size = new System.Drawing.Size(173, 44);
+            this.EnrolDate.TabIndex = 8;
+            this.EnrolDate.ValueChanged += new AntdUI.DateTimeNEventHandler(this.datePicker1_ValueChanged_1);
             // 
             // btnClear
             // 
@@ -162,13 +116,60 @@
             this.btnClear.Text = "Clear";
             this.btnClear.Type = AntdUI.TTypeMini.Primary;
             // 
-            // EnrolDate
+            // btnEnroll
             // 
-            this.EnrolDate.Location = new System.Drawing.Point(586, 34);
-            this.EnrolDate.Name = "EnrolDate";
-            this.EnrolDate.Size = new System.Drawing.Size(173, 44);
-            this.EnrolDate.TabIndex = 8;
-            this.EnrolDate.ValueChanged += new AntdUI.DateTimeNEventHandler(this.datePicker1_ValueChanged_1);
+            this.btnEnroll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            this.btnEnroll.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEnroll.Location = new System.Drawing.Point(504, 107);
+            this.btnEnroll.Name = "btnEnroll";
+            this.btnEnroll.Size = new System.Drawing.Size(127, 47);
+            this.btnEnroll.TabIndex = 6;
+            this.btnEnroll.Text = "Enroll";
+            this.btnEnroll.Type = AntdUI.TTypeMini.Primary;
+            // 
+            // txtClassId
+            // 
+            this.txtClassId.Location = new System.Drawing.Point(117, 92);
+            this.txtClassId.Name = "txtClassId";
+            this.txtClassId.Size = new System.Drawing.Size(193, 22);
+            this.txtClassId.TabIndex = 4;
+            // 
+            // txtStudentId
+            // 
+            this.txtStudentId.Location = new System.Drawing.Point(117, 44);
+            this.txtStudentId.Name = "txtStudentId";
+            this.txtStudentId.Size = new System.Drawing.Size(193, 22);
+            this.txtStudentId.TabIndex = 3;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(479, 47);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(81, 18);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Enroll Date";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(28, 92);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(64, 18);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Class ID";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(28, 44);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(76, 18);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Student ID";
             // 
             // frmEnrollment
             // 
@@ -181,9 +182,9 @@
             this.Name = "frmEnrollment";
             this.Text = "frmEnrollment";
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEnroll)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvEnroll)).EndInit();
             this.ResumeLayout(false);
 
         }
