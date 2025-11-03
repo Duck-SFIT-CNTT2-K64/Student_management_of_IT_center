@@ -10,21 +10,11 @@ using System.Windows.Forms;
 
 namespace Student_manager.UI
 {
-    public partial class frmTuitions : Form
+    public partial class frmSystem : Form
     {
-        public frmTuitions()
+        public frmSystem()
         {
             InitializeComponent();
-        }
-
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

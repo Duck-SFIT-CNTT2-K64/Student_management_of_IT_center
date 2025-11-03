@@ -60,10 +60,10 @@
             // 
             this.groupBox1.Controls.Add(this.dgvEnroll);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(0, 51);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(868, 459);
+            this.groupBox1.Size = new System.Drawing.Size(868, 491);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Enrollment Information";
@@ -72,11 +72,12 @@
             // 
             this.dgvEnroll.BackgroundColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.dgvEnroll.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEnroll.Location = new System.Drawing.Point(3, 23);
+            this.dgvEnroll.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvEnroll.Location = new System.Drawing.Point(3, 26);
             this.dgvEnroll.Name = "dgvEnroll";
             this.dgvEnroll.RowHeadersWidth = 51;
             this.dgvEnroll.RowTemplate.Height = 24;
-            this.dgvEnroll.Size = new System.Drawing.Size(862, 433);
+            this.dgvEnroll.Size = new System.Drawing.Size(862, 462);
             this.dgvEnroll.TabIndex = 0;
             // 
             // groupBox2
@@ -90,7 +91,9 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.groupBox2.Location = new System.Drawing.Point(0, 331);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(0, 363);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(868, 179);
             this.groupBox2.TabIndex = 2;
@@ -131,14 +134,14 @@
             // 
             this.txtClassId.Location = new System.Drawing.Point(117, 92);
             this.txtClassId.Name = "txtClassId";
-            this.txtClassId.Size = new System.Drawing.Size(193, 22);
+            this.txtClassId.Size = new System.Drawing.Size(193, 30);
             this.txtClassId.TabIndex = 4;
             // 
             // txtStudentId
             // 
             this.txtStudentId.Location = new System.Drawing.Point(117, 44);
             this.txtStudentId.Name = "txtStudentId";
-            this.txtStudentId.Size = new System.Drawing.Size(193, 22);
+            this.txtStudentId.Size = new System.Drawing.Size(193, 30);
             this.txtStudentId.TabIndex = 3;
             // 
             // label4
@@ -175,7 +178,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(868, 510);
+            this.ClientSize = new System.Drawing.Size(868, 542);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
