@@ -64,79 +64,89 @@
             this.dgvQLSV.Name = "dgvQLSV";
             this.dgvQLSV.RowHeadersWidth = 51;
             this.dgvQLSV.RowTemplate.Height = 24;
-            this.dgvQLSV.Size = new System.Drawing.Size(1206, 135);
+            this.dgvQLSV.Size = new System.Drawing.Size(1127, 135);
             this.dgvQLSV.TabIndex = 4;
+            this.dgvQLSV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvQLSV_CellContentClick);
             // 
-            // groupBoxSearch
+            // groupBox2
             // 
-            this.groupBoxSearch.Controls.Add(this.txtSearch);
-            this.groupBoxSearch.Controls.Add(this.btnSearch);
-            this.groupBoxSearch.Location = new System.Drawing.Point(12, 103);
-            this.groupBoxSearch.Name = "groupBoxSearch";
-            this.groupBoxSearch.Size = new System.Drawing.Size(1219, 82);
-            this.groupBoxSearch.TabIndex = 5;
-            this.groupBoxSearch.TabStop = false;
-            this.groupBoxSearch.Text = "Search";
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.btnTimKiem);
+            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Location = new System.Drawing.Point(12, 103);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(1140, 82);
+            this.groupBox2.TabIndex = 5;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Search Bar";
             // 
-            // txtSearch
+            // btnTimKiem
             // 
-            this.txtSearch.Location = new System.Drawing.Point(12, 32);
-            this.txtSearch.Multiline = true;
-            this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(600, 36);
-            this.txtSearch.TabIndex = 0;
+            this.btnTimKiem.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnTimKiem.Location = new System.Drawing.Point(484, 18);
+            this.btnTimKiem.Name = "btnTimKiem";
+            this.btnTimKiem.Size = new System.Drawing.Size(101, 61);
+            this.btnTimKiem.TabIndex = 1;
+            this.btnTimKiem.Text = "Search";
             // 
-            // btnSearch
+            // textBox1
             // 
-            this.btnSearch.Location = new System.Drawing.Point(628, 28);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(90, 40);
-            this.btnSearch.TabIndex = 1;
-            this.btnSearch.Text = "Search";
-            this.btnSearch.Type = AntdUI.TTypeMini.Primary;
+            this.textBox1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.textBox1.Location = new System.Drawing.Point(3, 18);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(481, 61);
+            this.textBox1.TabIndex = 0;
             // 
-            // groupBoxActions
+            // groupBox3
             // 
-            this.groupBoxActions.Controls.Add(this.btnAdd);
-            this.groupBoxActions.Controls.Add(this.btnEdit);
-            this.groupBoxActions.Controls.Add(this.btnDelete);
-            this.groupBoxActions.Controls.Add(this.btnReset);
-            this.groupBoxActions.Controls.Add(this.btnCancel);
-            this.groupBoxActions.Controls.Add(this.btnClose);
-            this.groupBoxActions.Controls.Add(this.btnPrint);
-            this.groupBoxActions.Location = new System.Drawing.Point(12, 191);
-            this.groupBoxActions.Name = "groupBoxActions";
-            this.groupBoxActions.Size = new System.Drawing.Size(1219, 89);
-            this.groupBoxActions.TabIndex = 6;
-            this.groupBoxActions.TabStop = false;
-            this.groupBoxActions.Text = "Actions";
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.btnIn);
+            this.groupBox3.Controls.Add(this.btnHuy);
+            this.groupBox3.Controls.Add(this.btnThoat);
+            this.groupBox3.Controls.Add(this.btnReset);
+            this.groupBox3.Controls.Add(this.btnXoa);
+            this.groupBox3.Controls.Add(this.btnSua);
+            this.groupBox3.Controls.Add(this.btnThem);
+            this.groupBox3.Location = new System.Drawing.Point(12, 191);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(1140, 89);
+            this.groupBox3.TabIndex = 6;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Operation";
             // 
-            // btnAdd
+            // btnIn
             // 
-            this.btnAdd.Location = new System.Drawing.Point(12, 28);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(100, 48);
-            this.btnAdd.TabIndex = 0;
-            this.btnAdd.Text = "Add";
-            this.btnAdd.Type = AntdUI.TTypeMini.Success;
+            this.btnIn.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnIn.Location = new System.Drawing.Point(609, 18);
+            this.btnIn.Name = "btnIn";
+            this.btnIn.Size = new System.Drawing.Size(101, 68);
+            this.btnIn.TabIndex = 6;
+            this.btnIn.Text = "Print";
+            this.btnIn.Type = AntdUI.TTypeMini.Success;
             // 
-            // btnEdit
+            // btnHuy
             // 
-            this.btnEdit.Location = new System.Drawing.Point(122, 28);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(100, 48);
-            this.btnEdit.TabIndex = 1;
-            this.btnEdit.Text = "Edit";
-            this.btnEdit.Type = AntdUI.TTypeMini.Primary;
+            this.btnHuy.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnHuy.Icon = ((System.Drawing.Image)(resources.GetObject("btnHuy.Icon")));
+            this.btnHuy.Location = new System.Drawing.Point(508, 18);
+            this.btnHuy.Name = "btnHuy";
+            this.btnHuy.Size = new System.Drawing.Size(101, 68);
+            this.btnHuy.TabIndex = 3;
+            this.btnHuy.Text = "Cancel";
+            this.btnHuy.Type = AntdUI.TTypeMini.Primary;
             // 
-            // btnDelete
+            // btnThoat
             // 
-            this.btnDelete.Location = new System.Drawing.Point(232, 28);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(100, 48);
-            this.btnDelete.TabIndex = 2;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.Type = AntdUI.TTypeMini.Error;
+            this.btnThoat.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnThoat.Icon = ((System.Drawing.Image)(resources.GetObject("btnThoat.Icon")));
+            this.btnThoat.Location = new System.Drawing.Point(407, 18);
+            this.btnThoat.Name = "btnThoat";
+            this.btnThoat.Size = new System.Drawing.Size(101, 68);
+            this.btnThoat.TabIndex = 5;
+            this.btnThoat.Text = "Exit";
+            this.btnThoat.Type = AntdUI.TTypeMini.Error;
+            this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
             // 
             // btnReset
             // 
@@ -178,30 +188,30 @@
             // 
             this.groupBoxDetails.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxDetails.Controls.Add(this.txtPhoneNum);
-            this.groupBoxDetails.Controls.Add(this.txtGender);
-            this.groupBoxDetails.Controls.Add(this.txtAddress);
-            this.groupBoxDetails.Controls.Add(this.txtEmail);
-            this.groupBoxDetails.Controls.Add(this.txtDateOfBirth);
-            this.groupBoxDetails.Controls.Add(this.txtFullName);
-            this.groupBoxDetails.Controls.Add(this.txtStatus);
-            this.groupBoxDetails.Controls.Add(this.txtUserID);
-            this.groupBoxDetails.Controls.Add(this.txtStudentID);
-            this.groupBoxDetails.Controls.Add(this.lblPhone);
-            this.groupBoxDetails.Controls.Add(this.lblEmail);
-            this.groupBoxDetails.Controls.Add(this.lblGender);
-            this.groupBoxDetails.Controls.Add(this.lblAddress);
-            this.groupBoxDetails.Controls.Add(this.lblBirth);
-            this.groupBoxDetails.Controls.Add(this.lblFullName);
-            this.groupBoxDetails.Controls.Add(this.lblStatus);
-            this.groupBoxDetails.Controls.Add(this.lblUserID);
-            this.groupBoxDetails.Controls.Add(this.lblStudentID);
-            this.groupBoxDetails.Location = new System.Drawing.Point(12, 493);
-            this.groupBoxDetails.Name = "groupBoxDetails";
-            this.groupBoxDetails.Size = new System.Drawing.Size(1219, 151);
-            this.groupBoxDetails.TabIndex = 8;
-            this.groupBoxDetails.TabStop = false;
-            this.groupBoxDetails.Text = "Student Information";
+            this.groupBox4.Controls.Add(this.txtPhoneNum);
+            this.groupBox4.Controls.Add(this.txtGender);
+            this.groupBox4.Controls.Add(this.txtAddress);
+            this.groupBox4.Controls.Add(this.txtEmail);
+            this.groupBox4.Controls.Add(this.txtDateOfBirth);
+            this.groupBox4.Controls.Add(this.txtFullName);
+            this.groupBox4.Controls.Add(this.txtStatus);
+            this.groupBox4.Controls.Add(this.txtUserID);
+            this.groupBox4.Controls.Add(this.txtStudentID);
+            this.groupBox4.Controls.Add(this.label12);
+            this.groupBox4.Controls.Add(this.label11);
+            this.groupBox4.Controls.Add(this.label10);
+            this.groupBox4.Controls.Add(this.label9);
+            this.groupBox4.Controls.Add(this.label8);
+            this.groupBox4.Controls.Add(this.label7);
+            this.groupBox4.Controls.Add(this.label6);
+            this.groupBox4.Controls.Add(this.label5);
+            this.groupBox4.Controls.Add(this.label4);
+            this.groupBox4.Location = new System.Drawing.Point(12, 493);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(1140, 151);
+            this.groupBox4.TabIndex = 6;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Student Information";
             // 
             // txtPhoneNum
             // 
@@ -352,29 +362,31 @@
             this.gbdgv.Controls.Add(this.dgvQLSV);
             this.gbdgv.Location = new System.Drawing.Point(12, 286);
             this.gbdgv.Name = "gbdgv";
-            this.gbdgv.Size = new System.Drawing.Size(1219, 201);
+            this.gbdgv.Size = new System.Drawing.Size(1140, 201);
             this.gbdgv.TabIndex = 7;
             this.gbdgv.TabStop = false;
             this.gbdgv.Text = "Students";
             // 
             // lblTitle
             // 
-            this.lblTitle.BackColor = System.Drawing.Color.Silver;
-            this.lblTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.Location = new System.Drawing.Point(0, 0);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(1243, 60);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Student Management";
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(343, 26);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(552, 71);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Student Management";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // frmStudent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(1243, 644);
-            this.Controls.Add(this.lblTitle);
+            this.ClientSize = new System.Drawing.Size(1164, 644);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.gbdgv);
             this.Controls.Add(this.groupBoxDetails);
             this.Controls.Add(this.groupBoxActions);
