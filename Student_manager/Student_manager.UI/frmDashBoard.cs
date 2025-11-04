@@ -12,6 +12,7 @@ namespace Student_manager.UI
     {
         private readonly string _username;
         private readonly string _role;
+        private double _dashboardSplitterRatio = 0.60;
 
         [DllImport("user32.dll")]
         private static extern bool ShowScrollBar(IntPtr hWnd, int wBar, bool bShow);
@@ -28,7 +29,7 @@ namespace Student_manager.UI
 
         private readonly List<MenuItemDef> _menuItems = new List<MenuItemDef>
         {
-            new MenuItemDef("Home (Dashboard)", "dashboard", IconChar.Home),
+            new MenuItemDef("Home", "dashboard", IconChar.Home),
             new MenuItemDef("Reports and Statistics", "reports", IconChar.ChartBar),
             new MenuItemDef("System Settings", "system", IconChar.Cogs),
             new MenuItemDef("Accounts", "accounts", IconChar.UserCog),
@@ -89,7 +90,7 @@ namespace Student_manager.UI
 
             public bool PreFilterMessage(ref System.Windows.Forms.Message m)
             {
-                if (m.Msg != 0x020A) return false;
+                if (m.Msg != WM_MOUSEWHEEL) return false;
                 var mousePos = Control.MousePosition;
                 if (!_target.Visible) return false;
 
@@ -118,7 +119,6 @@ namespace Student_manager.UI
 
                 return true;
             }
-
         }
 
         private void PopulateNavigation()
@@ -148,6 +148,17 @@ namespace Student_manager.UI
                 };
                 iconBtn.FlatAppearance.BorderSize = 0;
                 iconBtn.Click += NavButton_Click;
+
+                iconBtn.MouseEnter += (s, e) =>
+                {
+                    var b = s as IconButton;
+                    if (b != null && b != _selectedNavButton) b.Parent.BackColor = ControlPaint.Light(NavItemBgDefault);
+                };
+                iconBtn.MouseLeave += (s, e) =>
+                {
+                    var b = s as IconButton;
+                    if (b != null && b != _selectedNavButton) b.Parent.BackColor = NavItemBgDefault;
+                };
 
                 var card = new System.Windows.Forms.Panel
                 {
@@ -262,18 +273,192 @@ namespace Student_manager.UI
                     OpenChildForm(new frmNotification());
                     return;
 
+                case "tuition":
+                    OpenChildForm(new frmTuitions());
+                    return;
+
+                case "classes":
+                    OpenChildForm(new frmLopHoc());
+                    return;
+
+                case "courses":
+                    OpenChildForm(new frmKhoaHoc());
+                    return;
+
+                case "enroll":
+                    OpenChildForm(new frmEnrollment());
+                    return;
+
+                case "system":
+                    OpenChildForm(new frmSystem());
+                    return;
+
+                case "reports":
+                    OpenChildForm(new frmReport());
+                    return;
+
+                case "accounts":
+                    OpenChildForm(new frmAccount());
+                    return;
+
+                case "lecturers":
+                    OpenChildForm(new frmLectures());
+                    return;
+
                 case "dashboard":
+                    // switch into the Silver-themed home view
                     panelContent.Controls.Clear();
+                    panelContent.BackColor = Color.Silver; // make entire content area silver to match other forms
+
                     var lblHome = new AntdUI.Label
                     {
                         Text = "Home - Dashboard",
                         Font = new Font("Segoe UI", 18F, FontStyle.Bold),
                         Dock = DockStyle.Top,
-                        Height = 48
+                        Height = 48,
+                        ForeColor = Color.FromArgb(30, 30, 30),
+                        Padding = new Padding(12, 8, 0, 0),
+                        AutoSizeMode = AntdUI.TAutoSize.Auto
                     };
                     panelContent.Controls.Add(lblHome);
-                    var homePanel = new System.Windows.Forms.Panel { Dock = DockStyle.Fill, BackColor = Color.WhiteSmoke };
-                    panelContent.Controls.Add(homePanel);
+
+                    var split = new SplitContainer
+                    {
+                        Dock = DockStyle.Fill,
+                        Orientation = Orientation.Vertical,
+                        BackColor = Color.Silver, // keep split background aligned with panelContent
+                        SplitterWidth = 8,
+                    };
+
+                    // LEFT: ranking grid (keeps white grid for contrast on silver background)
+                    var dgvRanking = new DataGridView
+                    {
+                        Dock = DockStyle.Fill,
+                        ReadOnly = true,
+                        AllowUserToAddRows = false,
+                        SelectionMode = DataGridViewSelectionMode.FullRowSelect,
+                        BackgroundColor = Color.White,
+                        BorderStyle = BorderStyle.None,
+                        Font = new Font("Segoe UI", 10F),
+                        AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
+                        ColumnHeadersDefaultCellStyle = { BackColor = Color.FromArgb(240, 240, 240), Font = new Font("Segoe UI", 10F, FontStyle.Bold) }
+                    };
+                    dgvRanking.Columns.Add("Rank", "Rank");
+                    dgvRanking.Columns.Add("TeacherName", "Teacher");
+                    dgvRanking.Columns.Add("ClassesCompleted", "Classes Completed");
+                    dgvRanking.Columns["Rank"].Width = 60;
+                    dgvRanking.Columns["ClassesCompleted"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+                    var sampleRanking = new[]
+                    {
+                        new { Rank = 1, Name = "Bùi Hải Đức", Count = 32 },
+                        new { Rank = 2, Name = "Đặng Hoàng Huy", Count = 28 },
+                        new { Rank = 3, Name = "Đinh Quang Hưng", Count = 24 },
+                        new { Rank = 4, Name = "Nguyễn Mạnh Tiến", Count = 20 }
+                    };
+                    foreach (var r in sampleRanking) dgvRanking.Rows.Add(r.Rank, r.Name, r.Count);
+
+                    var leftHeaderPanel = new System.Windows.Forms.Panel { Dock = DockStyle.Top, Height = 82, BackColor = Color.Silver };
+                    var leftHeaderLabel = new AntdUI.Label
+                    {
+                        Text = "Top teachers by classes completed",
+                        Font = new Font("Segoe UI", 24F, FontStyle.Bold),
+                        Dock = DockStyle.Fill,
+                        Padding = new Padding(12, 24, 0, 0),
+                        ForeColor = Color.FromArgb(30, 30, 30),
+                        AutoSizeMode = AntdUI.TAutoSize.Auto
+                    };
+                    leftHeaderPanel.Controls.Add(leftHeaderLabel);
+
+                    var leftContainer = new System.Windows.Forms.Panel { Dock = DockStyle.Fill, Padding = new Padding(12), BackColor = Color.Silver };
+                    leftContainer.Controls.Add(dgvRanking);
+                    leftContainer.Controls.Add(leftHeaderPanel);
+                    split.Panel1.Controls.Add(leftContainer);
+
+                    // RIGHT: featured teacher cards - cards keep white backgrounds to stand out on silver
+                    var rightFlow = new FlowLayoutPanel
+                    {
+                        Dock = DockStyle.Fill,
+                        FlowDirection = FlowDirection.TopDown,
+                        AutoScroll = true,
+                        WrapContents = false,
+                        Padding = new Padding(12),
+                        BackColor = Color.Silver
+                    };
+
+                    var featured = new[]
+                    {
+                        new { Name = "Bùi Hải Đức", ImagePath = System.IO.Path.Combine(Application.StartupPath, "Images", "duc_1.png") },
+                        new { Name = "Đặng Hoàng Huy", ImagePath = System.IO.Path.Combine(Application.StartupPath, "Images", "teacher2.jpg") },
+                        new { Name = "Đinh Quang Hưng", ImagePath = System.IO.Path.Combine(Application.StartupPath, "Images", "Hung_quang.jpg") },
+                        new { Name = "Nguyễn Mạnh Tiến", ImagePath = System.IO.Path.Combine(Application.StartupPath, "Images", "Tien.jpg") }
+                    };
+
+                    foreach (var t in featured) rightFlow.Controls.Add(CreateFeaturedTeacherCard(t.Name, t.ImagePath));
+
+                    var rightHeader = new AntdUI.Label
+                    {
+                        Text = "Featured Teachers",
+                        Font = new Font("Segoe UI", 12F, FontStyle.Bold),
+                        Dock = DockStyle.Top,
+                        Height = 36,
+                        Padding = new Padding(8, 6, 0, 0),
+                        ForeColor = Color.FromArgb(30, 30, 30),
+                        AutoSizeMode = AntdUI.TAutoSize.Auto
+                    };
+                    var rightPanel = new System.Windows.Forms.Panel { Dock = DockStyle.Fill, Padding = new Padding(0), BackColor = Color.Silver };
+                    rightPanel.Controls.Add(rightFlow);
+                    rightPanel.Controls.Add(rightHeader);
+                    split.Panel2.Controls.Add(rightPanel);
+
+                    panelContent.Controls.Add(split);
+
+                    // minimums and persistence
+                    split.Panel1MinSize = 300;
+                    split.Panel2MinSize = 220;
+
+                    if (panelContent.IsHandleCreated)
+                    {
+                        panelContent.BeginInvoke((Action)(() =>
+                        {
+                            try
+                            {
+                                // Đây là logic dùng để đặt lại vị trí thanh trượt
+                                // dựa trên tỉ lệ đã lưu (_dashboardSplitterRatio)
+                                int totalW = Math.Max(1, split.ClientSize.Width);
+                                int desired = (int)(_dashboardSplitterRatio * totalW);
+                                int min = split.Panel1MinSize;
+                                int max = totalW - split.Panel2MinSize;
+                                if (max < min) split.SplitterDistance = min;
+                                else split.SplitterDistance = Math.Max(min, Math.Min(desired, max));
+                            }
+                            catch { }
+                        }));
+                    }
+
+                    split.SplitterMoved += (s, e) =>
+                    {
+                        try
+                        {
+                            if (split.ClientSize.Width > 0) _dashboardSplitterRatio = split.SplitterDistance / (double)split.ClientSize.Width;
+                        }
+                        catch { }
+                    };
+
+                    split.SizeChanged += (s, e) =>
+                    {
+                        try
+                        {
+                            int totalW = Math.Max(1, split.ClientSize.Width);
+                            int desired = (int)(_dashboardSplitterRatio * totalW);
+                            int min = split.Panel1MinSize;
+                            int max = totalW - split.Panel2MinSize;
+                            if (max < min) split.SplitterDistance = min;
+                            else split.SplitterDistance = Math.Max(min, Math.Min(desired, max));
+                        }
+                        catch { }
+                    };
+
                     return;
 
                 default:
@@ -313,6 +498,89 @@ namespace Student_manager.UI
             }
         }
 
+        private Control CreateFeaturedTeacherCard(string displayName, string imageFilePath)
+        {
+            var card = new System.Windows.Forms.Panel
+            {
+                Width = 260,
+                Height = 120,
+                Margin = new Padding(6),
+                Padding = new Padding(8),
+                BackColor = Color.White,
+                BorderStyle = BorderStyle.FixedSingle
+            };
+
+            Control pictureCtrl;
+            try
+            {
+                if (!string.IsNullOrEmpty(imageFilePath) && System.IO.File.Exists(imageFilePath))
+                {
+                    var pb = new PictureBox
+                    {
+                        Image = Image.FromFile(imageFilePath),
+                        SizeMode = PictureBoxSizeMode.Zoom,
+                        Size = new Size(96, 96),
+                        Location = new Point(8, 12)
+                    };
+                    pictureCtrl = pb;
+                }
+                else
+                {
+                    var ip = new IconPictureBox
+                    {
+                        IconChar = IconChar.UserGraduate,
+                        IconColor = Color.FromArgb(45, 140, 240),
+                        IconSize = 64,
+                        Size = new Size(96, 96),
+                        Location = new Point(8, 12)
+                    };
+                    pictureCtrl = ip;
+                }
+            }
+            catch
+            {
+                var ip = new IconPictureBox
+                {
+                    IconChar = IconChar.UserGraduate,
+                    IconColor = Color.FromArgb(45, 140, 240),
+                    IconSize = 64,
+                    Size = new Size(96, 96),
+                    Location = new Point(8, 12)
+                };
+                pictureCtrl = ip;
+            }
+
+            var lblName = new AntdUI.Label
+            {
+                Text = displayName,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(30, 30, 30),
+                Location = new Point(112, 24),
+                AutoSizeMode = AntdUI.TAutoSize.Auto
+            };
+
+            var lblMeta = new AntdUI.Label
+            {
+                Text = "Top performer",
+                Font = new Font("Segoe UI", 9F, FontStyle.Regular),
+                ForeColor = Color.FromArgb(100, 100, 100),
+                Location = new Point(112, 52),
+                AutoSizeMode = AntdUI.TAutoSize.Auto
+            };
+
+            card.Controls.Add(pictureCtrl);
+            card.Controls.Add(lblName);
+            card.Controls.Add(lblMeta);
+
+            card.Cursor = Cursors.Hand;
+            card.Click += (s, e) =>
+            {
+                MessageBox.Show($"Open details for: {displayName}", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            };
+
+            return card;
+        }
+
         private class MenuItemDef
         {
             public string Text { get; }
@@ -339,7 +607,6 @@ namespace Student_manager.UI
             }
             catch
             {
-                
             }
         }
 
@@ -356,6 +623,31 @@ namespace Student_manager.UI
             {
                 Application.Exit();
             }
+        }
+
+        private void frmDashBoard_Load(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void AdjustSplitDistanceForPanel(SplitContainer split, Control container)
+        {
+            if (split == null || container == null) return;
+
+            int totalW = container.ClientSize.Width;
+            int minTotal = split.Panel1MinSize + split.Panel2MinSize;
+
+            if (totalW <= minTotal || totalW <= 0)
+            {
+                split.SplitterDistance = split.Panel1MinSize;
+                return;
+            }
+
+            int pd = (int)(totalW * 0.60);
+            int maxAllowed = totalW - split.Panel2MinSize;
+            pd = Math.Max(split.Panel1MinSize, Math.Min(pd, maxAllowed));
+            pd = Math.Max(split.Panel1MinSize, Math.Min(pd, totalW - split.Panel2MinSize));
+            split.SplitterDistance = pd;
         }
     }
 }

@@ -158,7 +158,7 @@ namespace Student_manager.UI
             // 
             // panelContent
             // 
-            this.panelContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
+            this.panelContent.BackColor = System.Drawing.Color.Silver;
             this.panelContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContent.Location = new System.Drawing.Point(326, 118);
             this.panelContent.Name = "panelContent";
@@ -179,6 +179,7 @@ namespace Student_manager.UI
             this.Name = "frmDashBoard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Dashboard - Student Manager";
+            this.Load += new System.EventHandler(this.frmDashBoard_Load);
             this.panelHeader.ResumeLayout(false);
             this.panelHeader.PerformLayout();
             this.panelNav.ResumeLayout(false);
