@@ -63,6 +63,17 @@
     <Compile Include="frmDashBoard.Designer.cs">
       <DependentUpon>frmDashBoard.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmKhoaHoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmKhoaHoc.Designer.cs">
+      <DependentUpon>frmKhoaHoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLopHoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLopHoc.Designer.cs">
+      <DependentUpon>frmLopHoc.cs</DependentUpon>
     <Compile Include="frmEnrollment.cs">
       <SubType>Form</SubType>
     </Compile>
