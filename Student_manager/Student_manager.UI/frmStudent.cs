@@ -37,5 +37,10 @@ namespace Student_manager.UI
         {
             MessageBox.Show("Are you sure you want to quit?", "Yes/No", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
         }
+
+        private void frmStudent_Load_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }
