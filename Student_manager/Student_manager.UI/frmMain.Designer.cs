@@ -6,9 +6,6 @@ namespace Student_manager.UI
 {
     partial class frmMain
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         #region Designer fields
@@ -28,10 +25,7 @@ namespace Student_manager.UI
         private AntdUI.Input txtPassword;
         #endregion
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -43,10 +37,6 @@ namespace Student_manager.UI
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support — do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
