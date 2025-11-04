@@ -75,7 +75,6 @@
     <Compile Include="frmLopHoc.Designer.cs">
       <DependentUpon>frmLopHoc.cs</DependentUpon>
     </Compile>
-    <!-- ĐÃ SỬA LỖI Ở ĐÂY: Thêm </Compile> và ngắt dòng -->
     <Compile Include="frmEnrollment.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,7 +122,6 @@
     <EmbeddedResource Include="frmEnrollment.resx">
       <DependentUpon>frmEnrollment.cs</DependentUpon>
     </EmbeddedResource>
-    <!-- ĐÃ SỬA LỖI Ở ĐÂY: Thêm </EmbeddedResource> và ngắt dòng -->
     <EmbeddedResource Include="frmDashBoard.resx">
       <DependentUpon>frmDashBoard.cs</DependentUpon>
     </EmbeddedResource>
@@ -132,7 +130,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmNotification.resx">
       <DependentUpon>frmNotification.cs</DependentUpon>
-    </S>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmStudent.resx">
       <DependentUpon>frmStudent.cs</DependentUpon>
     </EmbeddedResource>
@@ -141,7 +139,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSystem.resx">
       <DependentUpon>frmSystem.cs</DependentUpon>
-    </S>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmTuitions.resx">
       <DependentUpon>frmTuitions.cs</DependentUpon>
     </EmbeddedResource>
@@ -162,7 +160,6 @@
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
-
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
@@ -184,3 +181,4 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
+
