@@ -120,7 +120,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmEnrollment.resx">
       <DependentUpon>frmEnrollment.cs</DependentUpon>
-    <EmbeddedResource Include="frmDashBoard.resx">
+    </EmbeddedResource> <EmbeddedResource Include="frmDashBoard.resx">
       <DependentUpon>frmDashBoard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
