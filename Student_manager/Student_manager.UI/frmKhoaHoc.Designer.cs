@@ -31,22 +31,22 @@
             this.label1 = new AntdUI.Label();
             this.dgvKhoaHoc = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new AntdUI.Label();
-            this.label3 = new AntdUI.Label();
-            this.label4 = new AntdUI.Label();
-            this.label5 = new AntdUI.Label();
-            this.label6 = new AntdUI.Label();
-            this.txtCourseName = new System.Windows.Forms.TextBox();
-            this.txtDescription = new System.Windows.Forms.TextBox();
-            this.txtDuration = new System.Windows.Forms.TextBox();
-            this.txtFee = new System.Windows.Forms.TextBox();
-            this.txtCourseCode = new System.Windows.Forms.TextBox();
-            this.btnAdd = new AntdUI.Button();
-            this.btnModify = new AntdUI.Button();
-            this.btnDelete = new AntdUI.Button();
-            this.btnSave = new AntdUI.Button();
-            this.btnExit = new AntdUI.Button();
             this.btnCancel = new AntdUI.Button();
+            this.btnExit = new AntdUI.Button();
+            this.btnSave = new AntdUI.Button();
+            this.btnDelete = new AntdUI.Button();
+            this.btnModify = new AntdUI.Button();
+            this.btnAdd = new AntdUI.Button();
+            this.txtCourseCode = new System.Windows.Forms.TextBox();
+            this.txtFee = new System.Windows.Forms.TextBox();
+            this.txtDuration = new System.Windows.Forms.TextBox();
+            this.txtDescription = new System.Windows.Forms.TextBox();
+            this.txtCourseName = new System.Windows.Forms.TextBox();
+            this.label6 = new AntdUI.Label();
+            this.label5 = new AntdUI.Label();
+            this.label4 = new AntdUI.Label();
+            this.label3 = new AntdUI.Label();
+            this.label2 = new AntdUI.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnSearch = new AntdUI.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
@@ -104,37 +104,104 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             // 
-            // label2
+            // btnCancel
             // 
-            this.label2.Location = new System.Drawing.Point(47, 21);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(93, 23);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Course Code :";
+            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(13)))), ((int)(((byte)(85)))));
+            this.btnCancel.BackHover = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(162)))), ((int)(((byte)(171)))));
+            this.btnCancel.Location = new System.Drawing.Point(615, 101);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(80, 32);
+            this.btnCancel.TabIndex = 15;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.Type = AntdUI.TTypeMini.Primary;
             // 
-            // label3
+            // btnExit
             // 
-            this.label3.Location = new System.Drawing.Point(47, 60);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(93, 23);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Course Name :";
+            this.btnExit.BackHover = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(162)))), ((int)(((byte)(171)))));
+            this.btnExit.Location = new System.Drawing.Point(615, 174);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(80, 32);
+            this.btnExit.TabIndex = 14;
+            this.btnExit.Text = "Exit";
             // 
-            // label4
+            // btnSave
             // 
-            this.label4.Location = new System.Drawing.Point(47, 100);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(93, 23);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Description :";
+            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(239)))), ((int)(((byte)(111)))));
+            this.btnSave.BackHover = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(162)))), ((int)(((byte)(171)))));
+            this.btnSave.Location = new System.Drawing.Point(615, 33);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(80, 32);
+            this.btnSave.TabIndex = 13;
+            this.btnSave.Text = "Save";
+            this.btnSave.Type = AntdUI.TTypeMini.Primary;
             // 
-            // label5
+            // btnDelete
             // 
-            this.label5.Location = new System.Drawing.Point(47, 183);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(75, 23);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Tuition Fee :";
+            this.btnDelete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(10)))), ((int)(((byte)(26)))));
+            this.btnDelete.BackHover = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(162)))), ((int)(((byte)(171)))));
+            this.btnDelete.Location = new System.Drawing.Point(474, 174);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(80, 32);
+            this.btnDelete.TabIndex = 12;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.Type = AntdUI.TTypeMini.Primary;
+            // 
+            // btnModify
+            // 
+            this.btnModify.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(211)))), ((int)(((byte)(233)))));
+            this.btnModify.BackHover = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(162)))), ((int)(((byte)(171)))));
+            this.btnModify.Location = new System.Drawing.Point(474, 101);
+            this.btnModify.Name = "btnModify";
+            this.btnModify.Size = new System.Drawing.Size(80, 32);
+            this.btnModify.TabIndex = 11;
+            this.btnModify.Text = "Modify";
+            this.btnModify.Type = AntdUI.TTypeMini.Primary;
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(235)))), ((int)(((byte)(66)))));
+            this.btnAdd.BackHover = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(162)))), ((int)(((byte)(171)))));
+            this.btnAdd.Location = new System.Drawing.Point(474, 33);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(80, 32);
+            this.btnAdd.TabIndex = 10;
+            this.btnAdd.Text = "Add";
+            this.btnAdd.Type = AntdUI.TTypeMini.Primary;
+            // 
+            // txtCourseCode
+            // 
+            this.txtCourseCode.Location = new System.Drawing.Point(146, 22);
+            this.txtCourseCode.Name = "txtCourseCode";
+            this.txtCourseCode.Size = new System.Drawing.Size(226, 22);
+            this.txtCourseCode.TabIndex = 9;
+            // 
+            // txtFee
+            // 
+            this.txtFee.Location = new System.Drawing.Point(146, 184);
+            this.txtFee.Name = "txtFee";
+            this.txtFee.Size = new System.Drawing.Size(226, 22);
+            this.txtFee.TabIndex = 8;
+            // 
+            // txtDuration
+            // 
+            this.txtDuration.Location = new System.Drawing.Point(146, 139);
+            this.txtDuration.Name = "txtDuration";
+            this.txtDuration.Size = new System.Drawing.Size(226, 22);
+            this.txtDuration.TabIndex = 7;
+            // 
+            // txtDescription
+            // 
+            this.txtDescription.Location = new System.Drawing.Point(146, 101);
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(226, 22);
+            this.txtDescription.TabIndex = 6;
+            // 
+            // txtCourseName
+            // 
+            this.txtCourseName.Location = new System.Drawing.Point(146, 61);
+            this.txtCourseName.Name = "txtCourseName";
+            this.txtCourseName.Size = new System.Drawing.Size(226, 22);
+            this.txtCourseName.TabIndex = 5;
             // 
             // label6
             // 
@@ -144,89 +211,37 @@
             this.label6.TabIndex = 4;
             this.label6.Text = "Duration :";
             // 
-            // txtCourseName
+            // label5
             // 
-            this.txtCourseName.Location = new System.Drawing.Point(146, 61);
-            this.txtCourseName.Name = "txtCourseName";
-            this.txtCourseName.Size = new System.Drawing.Size(226, 22);
-            this.txtCourseName.TabIndex = 5;
+            this.label5.Location = new System.Drawing.Point(47, 183);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(75, 23);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "Tuition Fee :";
             // 
-            // txtDescription
+            // label4
             // 
-            this.txtDescription.Location = new System.Drawing.Point(146, 101);
-            this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(226, 22);
-            this.txtDescription.TabIndex = 6;
+            this.label4.Location = new System.Drawing.Point(47, 100);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(93, 23);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Description :";
             // 
-            // txtDuration
+            // label3
             // 
-            this.txtDuration.Location = new System.Drawing.Point(146, 139);
-            this.txtDuration.Name = "txtDuration";
-            this.txtDuration.Size = new System.Drawing.Size(226, 22);
-            this.txtDuration.TabIndex = 7;
+            this.label3.Location = new System.Drawing.Point(47, 60);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(93, 23);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Course Name :";
             // 
-            // txtFee
+            // label2
             // 
-            this.txtFee.Location = new System.Drawing.Point(146, 184);
-            this.txtFee.Name = "txtFee";
-            this.txtFee.Size = new System.Drawing.Size(226, 22);
-            this.txtFee.TabIndex = 8;
-            // 
-            // txtCourseCode
-            // 
-            this.txtCourseCode.Location = new System.Drawing.Point(146, 22);
-            this.txtCourseCode.Name = "txtCourseCode";
-            this.txtCourseCode.Size = new System.Drawing.Size(226, 22);
-            this.txtCourseCode.TabIndex = 9;
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(119)))), ((int)(((byte)(255)))));
-            this.btnAdd.Location = new System.Drawing.Point(474, 33);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(80, 32);
-            this.btnAdd.TabIndex = 10;
-            this.btnAdd.Text = "Add";
-            // 
-            // btnModify
-            // 
-            this.btnModify.Location = new System.Drawing.Point(474, 101);
-            this.btnModify.Name = "btnModify";
-            this.btnModify.Size = new System.Drawing.Size(80, 32);
-            this.btnModify.TabIndex = 11;
-            this.btnModify.Text = "Modify";
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Location = new System.Drawing.Point(474, 174);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(80, 32);
-            this.btnDelete.TabIndex = 12;
-            this.btnDelete.Text = "Delete";
-            // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(615, 33);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(80, 32);
-            this.btnSave.TabIndex = 13;
-            this.btnSave.Text = "Save";
-            // 
-            // btnExit
-            // 
-            this.btnExit.Location = new System.Drawing.Point(615, 174);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(80, 32);
-            this.btnExit.TabIndex = 14;
-            this.btnExit.Text = "Exit";
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Location = new System.Drawing.Point(615, 101);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(80, 32);
-            this.btnCancel.TabIndex = 15;
-            this.btnCancel.Text = "Cancel";
+            this.label2.Location = new System.Drawing.Point(47, 21);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(93, 23);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Course Code :";
             // 
             // groupBox2
             // 
@@ -242,11 +257,15 @@
             // 
             // btnSearch
             // 
+            this.btnSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(232)))), ((int)(((byte)(22)))));
+            this.btnSearch.BackHover = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(162)))), ((int)(((byte)(171)))));
+            this.btnSearch.ForeColor = System.Drawing.Color.Black;
             this.btnSearch.Location = new System.Drawing.Point(337, 13);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(85, 39);
             this.btnSearch.TabIndex = 11;
             this.btnSearch.Text = "Search";
+            this.btnSearch.Type = AntdUI.TTypeMini.Primary;
             // 
             // txtSearch
             // 
