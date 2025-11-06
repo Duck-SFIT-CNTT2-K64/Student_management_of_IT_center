@@ -2,6 +2,7 @@
 using FontAwesome.Sharp;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -306,159 +307,7 @@ namespace Student_manager.UI
                     return;
 
                 case "dashboard":
-                    // switch into the Silver-themed home view
-                    panelContent.Controls.Clear();
-                    panelContent.BackColor = Color.Silver; // make entire content area silver to match other forms
-
-                    var lblHome = new AntdUI.Label
-                    {
-                        Text = "Home - Dashboard",
-                        Font = new Font("Segoe UI", 18F, FontStyle.Bold),
-                        Dock = DockStyle.Top,
-                        Height = 48,
-                        ForeColor = Color.FromArgb(30, 30, 30),
-                        Padding = new Padding(12, 8, 0, 0),
-                        AutoSizeMode = AntdUI.TAutoSize.Auto
-                    };
-                    panelContent.Controls.Add(lblHome);
-
-                    var split = new SplitContainer
-                    {
-                        Dock = DockStyle.Fill,
-                        Orientation = Orientation.Vertical,
-                        BackColor = Color.Silver, // keep split background aligned with panelContent
-                        SplitterWidth = 8,
-                    };
-
-                    // LEFT: ranking grid (keeps white grid for contrast on silver background)
-                    var dgvRanking = new DataGridView
-                    {
-                        Dock = DockStyle.Fill,
-                        ReadOnly = true,
-                        AllowUserToAddRows = false,
-                        SelectionMode = DataGridViewSelectionMode.FullRowSelect,
-                        BackgroundColor = Color.White,
-                        BorderStyle = BorderStyle.None,
-                        Font = new Font("Segoe UI", 10F),
-                        AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
-                        ColumnHeadersDefaultCellStyle = { BackColor = Color.FromArgb(240, 240, 240), Font = new Font("Segoe UI", 10F, FontStyle.Bold) }
-                    };
-                    dgvRanking.Columns.Add("Rank", "Rank");
-                    dgvRanking.Columns.Add("TeacherName", "Teacher");
-                    dgvRanking.Columns.Add("ClassesCompleted", "Classes Completed");
-                    dgvRanking.Columns["Rank"].Width = 60;
-                    dgvRanking.Columns["ClassesCompleted"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-                    var sampleRanking = new[]
-                    {
-                        new { Rank = 1, Name = "Bùi Hải Đức", Count = 32 },
-                        new { Rank = 2, Name = "Đặng Hoàng Huy", Count = 28 },
-                        new { Rank = 3, Name = "Đinh Quang Hưng", Count = 24 },
-                        new { Rank = 4, Name = "Nguyễn Mạnh Tiến", Count = 20 }
-                    };
-                    foreach (var r in sampleRanking) dgvRanking.Rows.Add(r.Rank, r.Name, r.Count);
-
-                    var leftHeaderPanel = new System.Windows.Forms.Panel { Dock = DockStyle.Top, Height = 82, BackColor = Color.Silver };
-                    var leftHeaderLabel = new AntdUI.Label
-                    {
-                        Text = "Top teachers by classes completed",
-                        Font = new Font("Segoe UI", 24F, FontStyle.Bold),
-                        Dock = DockStyle.Fill,
-                        Padding = new Padding(12, 24, 0, 0),
-                        ForeColor = Color.FromArgb(30, 30, 30),
-                        AutoSizeMode = AntdUI.TAutoSize.Auto
-                    };
-                    leftHeaderPanel.Controls.Add(leftHeaderLabel);
-
-                    var leftContainer = new System.Windows.Forms.Panel { Dock = DockStyle.Fill, Padding = new Padding(12), BackColor = Color.Silver };
-                    leftContainer.Controls.Add(dgvRanking);
-                    leftContainer.Controls.Add(leftHeaderPanel);
-                    split.Panel1.Controls.Add(leftContainer);
-
-                    // RIGHT: featured teacher cards - cards keep white backgrounds to stand out on silver
-                    var rightFlow = new FlowLayoutPanel
-                    {
-                        Dock = DockStyle.Fill,
-                        FlowDirection = FlowDirection.TopDown,
-                        AutoScroll = true,
-                        WrapContents = false,
-                        Padding = new Padding(12),
-                        BackColor = Color.Silver
-                    };
-
-                    var featured = new[]
-                    {
-                        new { Name = "Bùi Hải Đức", ImagePath = System.IO.Path.Combine(Application.StartupPath, "Images", "duc_1.png") },
-                        new { Name = "Đặng Hoàng Huy", ImagePath = System.IO.Path.Combine(Application.StartupPath, "Images", "teacher2.jpg") },
-                        new { Name = "Đinh Quang Hưng", ImagePath = System.IO.Path.Combine(Application.StartupPath, "Images", "Hung_quang.jpg") },
-                        new { Name = "Nguyễn Mạnh Tiến", ImagePath = System.IO.Path.Combine(Application.StartupPath, "Images", "Tien.jpg") }
-                    };
-
-                    foreach (var t in featured) rightFlow.Controls.Add(CreateFeaturedTeacherCard(t.Name, t.ImagePath));
-
-                    var rightHeader = new AntdUI.Label
-                    {
-                        Text = "Featured Teachers",
-                        Font = new Font("Segoe UI", 12F, FontStyle.Bold),
-                        Dock = DockStyle.Top,
-                        Height = 36,
-                        Padding = new Padding(8, 6, 0, 0),
-                        ForeColor = Color.FromArgb(30, 30, 30),
-                        AutoSizeMode = AntdUI.TAutoSize.Auto
-                    };
-                    var rightPanel = new System.Windows.Forms.Panel { Dock = DockStyle.Fill, Padding = new Padding(0), BackColor = Color.Silver };
-                    rightPanel.Controls.Add(rightFlow);
-                    rightPanel.Controls.Add(rightHeader);
-                    split.Panel2.Controls.Add(rightPanel);
-
-                    panelContent.Controls.Add(split);
-
-                    // minimums and persistence
-                    split.Panel1MinSize = 300;
-                    split.Panel2MinSize = 220;
-
-                    if (panelContent.IsHandleCreated)
-                    {
-                        panelContent.BeginInvoke((Action)(() =>
-                        {
-                            try
-                            {
-                                // Đây là logic dùng để đặt lại vị trí thanh trượt
-                                // dựa trên tỉ lệ đã lưu (_dashboardSplitterRatio)
-                                int totalW = Math.Max(1, split.ClientSize.Width);
-                                int desired = (int)(_dashboardSplitterRatio * totalW);
-                                int min = split.Panel1MinSize;
-                                int max = totalW - split.Panel2MinSize;
-                                if (max < min) split.SplitterDistance = min;
-                                else split.SplitterDistance = Math.Max(min, Math.Min(desired, max));
-                            }
-                            catch { }
-                        }));
-                    }
-
-                    split.SplitterMoved += (s, e) =>
-                    {
-                        try
-                        {
-                            if (split.ClientSize.Width > 0) _dashboardSplitterRatio = split.SplitterDistance / (double)split.ClientSize.Width;
-                        }
-                        catch { }
-                    };
-
-                    split.SizeChanged += (s, e) =>
-                    {
-                        try
-                        {
-                            int totalW = Math.Max(1, split.ClientSize.Width);
-                            int desired = (int)(_dashboardSplitterRatio * totalW);
-                            int min = split.Panel1MinSize;
-                            int max = totalW - split.Panel2MinSize;
-                            if (max < min) split.SplitterDistance = min;
-                            else split.SplitterDistance = Math.Max(min, Math.Min(desired, max));
-                        }
-                        catch { }
-                    };
-
+                    OpenChildForm(new frmHome());
                     return;
 
                 default:
@@ -648,6 +497,35 @@ namespace Student_manager.UI
             pd = Math.Max(split.Panel1MinSize, Math.Min(pd, maxAllowed));
             pd = Math.Max(split.Panel1MinSize, Math.Min(pd, totalW - split.Panel2MinSize));
             split.SplitterDistance = pd;
+        }
+
+        private string ResolveImagePath(string storedPath)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(storedPath)) return null;
+
+                // storedPath examples used by frmFeaturedManager: "/images/features/filename.png"
+                var filename = System.IO.Path.GetFileName(storedPath);
+
+                // primary location: Application.StartupPath\Images\Featured\<filename>
+                var candidate = System.IO.Path.Combine(Application.StartupPath, "Images", "Featured", filename);
+                if (System.IO.File.Exists(candidate)) return candidate;
+
+                // fallback: Application.StartupPath\Images\<filename>
+                candidate = System.IO.Path.Combine(Application.StartupPath, "Images", filename);
+                if (System.IO.File.Exists(candidate)) return candidate;
+
+                // if storedPath is already absolute, check it directly
+                if (System.IO.Path.IsPathRooted(storedPath) && System.IO.File.Exists(storedPath)) return storedPath;
+
+                // nothing found
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

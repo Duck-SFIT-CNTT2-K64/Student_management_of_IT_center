@@ -10,7 +10,7 @@ namespace Student_manager.DAL
 {
     public class DataProcesser
     {
-        string strConnect = "Data Source=DangHuy\\SQLEXPRESS;DataBase=QLSV_TrungTamTinHoc;Integrated Security=True";
+        string strConnect = "Data Source=DUCKCYZZZ\\SQLEXPRESS;Initial Catalog=QLSV_TrungTamTinHoc;Integrated Security=True;";
         SqlConnection sqlConnect = null;
 
         //Ham mo ket noi
