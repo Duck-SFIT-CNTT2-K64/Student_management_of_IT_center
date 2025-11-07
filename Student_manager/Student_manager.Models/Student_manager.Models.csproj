@@ -55,11 +55,14 @@
     <Compile Include="ClassSchedule.cs" />
     <Compile Include="Course.cs" />
     <Compile Include="Enrollment.cs" />
+    <Compile Include="FeaturedTeacher.cs" />
+    <Compile Include="HomeNotice.cs" />
     <Compile Include="Notification.cs" />
     <Compile Include="NotificationRecipient.cs" />
     <Compile Include="Permission.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Receipt.cs" />
+    <Compile Include="Report.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="RolePermission.cs" />
     <Compile Include="Room.cs" />

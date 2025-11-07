@@ -211,6 +211,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "frmReport";
             this.Text = "Reports and Statistics";
+            this.Load += new System.EventHandler(this.FrmReport_Load);
             this.panelMain.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvReports)).EndInit();
             this.groupBoxDetails.ResumeLayout(false);
