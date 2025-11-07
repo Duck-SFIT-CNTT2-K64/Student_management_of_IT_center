@@ -53,11 +53,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionLogDAO.cs" />
+    <Compile Include="ClassesDAO.cs" />
+    <Compile Include="ClassesScheduleDAO.cs" />
+    <Compile Include="CourseDAO.cs" />
     <Compile Include="DataProcesser.cs" />
     <Compile Include="FeaturedTeacherDAO.cs" />
     <Compile Include="HomeNoticeDAO.cs" />
+    <Compile Include="LecturesDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportDAO.cs" />
+    <Compile Include="RoomsDAO.cs" />
     <Compile Include="SqlHelper.cs" />
     <Compile Include="TuitionDAO.cs" />
     <Compile Include="UserDAO.cs" />
