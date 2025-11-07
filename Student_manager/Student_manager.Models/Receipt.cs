@@ -15,5 +15,7 @@ namespace Student_manager.Models
         public decimal Amount { get; set; }
         public DateTime PaymentDate { get; set; }
         public string Note { get; set; }
+        public string StudentFullName { get; set; }
+        public string ClassName { get; set; }
     }
 }

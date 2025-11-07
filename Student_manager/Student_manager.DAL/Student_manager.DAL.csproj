@@ -50,9 +50,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionLogsDAO.cs" />
+    <Compile Include="ClassDAO.cs" />
+    <Compile Include="CourseDAO.cs" />
     <Compile Include="DataProcesser.cs" />
+    <Compile Include="EnrollmentDAO.cs" />
+    <Compile Include="PermissionDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReceiptDAO.cs" />
+    <Compile Include="RolePermissionDAO.cs" />
+    <Compile Include="RoleSystemDAO.cs" />
     <Compile Include="SqlHelper.cs" />
+    <Compile Include="StudentDAO.cs" />
+    <Compile Include="TuitionDAO.cs" />
+    <Compile Include="UserRoleDAO.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
