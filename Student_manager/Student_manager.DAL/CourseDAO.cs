@@ -177,15 +177,31 @@ namespace Student_manager.DAL
         public List<Course> SearchByName(string courseName)
         {
             List<Course> courses = new List<Course>();
-            // Nếu muốn an toàn hơn, có thể chuyển sang SqlHelper và parameter; hiện giữ DocBang với escape
-            string searchNameEscaped = courseName?.Replace("'", "''") ?? "";
-            string sql = $"SELECT * FROM Courses WHERE CourseName LIKE N'%{searchNameEscaped}%'";
+            const string sql = "SELECT * FROM Courses WHERE CourseName LIKE N'%' + @CourseName + '%'";
             try
             {
-                DataTable dt = _dataProcessor.DocBang(sql);
-                foreach (DataRow row in dt.Rows)
+                using (var conn = SqlHelper.GetConnection())
+                using (var cmd = new SqlCommand(sql, conn))
                 {
-                    courses.Add(MapDataRowToCourse(row));
+                    cmd.Parameters.AddWithValue("@CourseName", courseName ?? string.Empty);
+                    conn.Open();
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            // Assuming MapDataRowToCourse can be adapted to accept a SqlDataReader
+                            // If not, map manually here
+                            Course course = new Course
+                            {
+                                CourseId = reader["CourseId"] != DBNull.Value ? Convert.ToInt32(reader["CourseId"]) : 0,
+                                CourseCode = reader["CourseCode"]?.ToString(),
+                                CourseName = reader["CourseName"]?.ToString(),
+                                Credits = reader["Credits"] != DBNull.Value ? Convert.ToInt32(reader["Credits"]) : 0,
+                                Description = reader["Description"]?.ToString()
+                            };
+                            courses.Add(course);
+                        }
+                    }
                 }
             }
             catch (Exception ex)
