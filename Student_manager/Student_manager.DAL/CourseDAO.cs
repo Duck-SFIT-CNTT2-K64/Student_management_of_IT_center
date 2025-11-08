@@ -28,12 +28,21 @@ namespace Student_manager.DAL
         public Course GetById(int courseId)
         {
             if (courseId <= 0) return null;
-            string sql = $"SELECT * FROM Courses WHERE CourseId = {courseId}";
+            string sql = "SELECT * FROM Courses WHERE CourseId = @CourseId";
             try
             {
-                DataTable dt = _dataProcessor.DocBang(sql);
-                if (dt.Rows.Count == 0) return null;
-                return MapDataRowToCourse(dt.Rows[0]);
+                using (SqlConnection conn = new SqlConnection(_dataProcessor.ConnectionString))
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@CourseId", courseId);
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        if (dt.Rows.Count == 0) return null;
+                        return MapDataRowToCourse(dt.Rows[0]);
+                    }
+                }
             }
             catch (Exception ex)
             {
