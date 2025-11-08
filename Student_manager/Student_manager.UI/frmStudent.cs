@@ -277,7 +277,7 @@ namespace Student_manager.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error adding student:\nn" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error adding student:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
