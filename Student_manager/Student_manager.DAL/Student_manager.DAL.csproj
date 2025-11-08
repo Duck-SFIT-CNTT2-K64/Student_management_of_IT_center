@@ -52,18 +52,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionLogsDAO.cs" />
+    <Compile Include="ClassDAO.cs" />
+    <Compile Include="CourseDAO.cs" />
     <Compile Include="ActionLogDAO.cs" />
     <Compile Include="ClassesDAO.cs" />
     <Compile Include="ClassesScheduleDAO.cs" />
+    <Compile Include="AttendanceDAO.cs" />
+    <Compile Include="ClassDAO.cs" />
     <Compile Include="CourseDAO.cs" />
     <Compile Include="DataProcesser.cs" />
+    <Compile Include="EnrollmentDAO.cs" />
+    <Compile Include="PermissionDAO.cs" />
     <Compile Include="FeaturedTeacherDAO.cs" />
     <Compile Include="HomeNoticeDAO.cs" />
     <Compile Include="LecturesDAO.cs" />
+    <Compile Include="NotificationDAO.cs" />
+    <Compile Include="NotificationRecipientDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReceiptDAO.cs" />
+    <Compile Include="RolePermissionDAO.cs" />
+    <Compile Include="RoleSystemDAO.cs" />
     <Compile Include="ReportDAO.cs" />
     <Compile Include="RoomsDAO.cs" />
+    <Compile Include="ScoreDAO.cs" />
+    <Compile Include="ScoreTypeDAO.cs" />
     <Compile Include="SqlHelper.cs" />
+    <Compile Include="StudentDAO.cs" />
+    <Compile Include="TuitionDAO.cs" />
+    <Compile Include="UserRoleDAO.cs" />
     <Compile Include="TuitionDAO.cs" />
     <Compile Include="UserDAO.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

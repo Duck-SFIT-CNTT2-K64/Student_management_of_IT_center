@@ -29,5 +29,6 @@ namespace Student_manager.Models
 
         public string Email { get; set; }
 
+        public string StatusName { get; set; }
     }
 }

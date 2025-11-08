@@ -1,72 +1,92 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Student_manager.Models;
 using Student_manager.DAL;
+// Đã xóa "using System.Collections.Generic;" bị lặp
+using System.Collections.Generic;
 
 namespace Student_manager.BLL
 {
     public class CourseService
     {
         private readonly CourseDAO _courseDAO;
+
+        // Giữ lại Constructor Injection (từ feature/UI)
         public CourseService(CourseDAO dao)
         {
             _courseDAO = dao;
         }
-        // READ: Lấy toàn bộ danh sách khóa học (Phục vụ Load Form/DataGridview)
+
+        // READ: Lấy toàn bộ danh sách khóa học (từ feature/UI)
         public List<Course> GetAllCourses()
         {
-            // Trực tiếp gọi hàm GetAll của DAL và trả về.
             return _courseDAO.GetAll();
         }
-        // SEARCH: Tìm kiếm khóa học theo tên
+
+        // READ: Lấy 1 khóa học theo ID (Thêm từ nhánh main)
+        public Course GetCourseById(int id)
+        {
+            if (id <= 0) return null;
+            // Giả sử DAO của bạn có hàm GetById
+            return _courseDAO.GetById(id); 
+        }
+
+        // SEARCH: Tìm kiếm khóa học theo tên (từ feature/UI)
         public List<Course> SearchCourses(string name)
         {
-            // Kiểm tra nghiệp vụ: Nếu chuỗi tìm kiếm rỗng hoặc quá ngắn, có thể trả về danh sách rỗng
             if (string.IsNullOrWhiteSpace(name) || name.Length < 2)
             {
-                // Có thể ném exception hoặc trả về danh sách rỗng, tùy quy tắc.
                 return new List<Course>();
             }
-
             return _courseDAO.SearchByName(name);
         }
-        // CREATE: Thêm khóa học (Nơi áp dụng logic nghiệp vụ)
+
+        // CREATE: Thêm khóa học (Gộp logic từ cả 2 nhánh)
         public string AddCourse(Course course)
         {
-            // 1. Kiểm tra Validation (Kiểm tra dữ liệu đầu vào không hợp lệ)
-            if (string.IsNullOrWhiteSpace(course.CourseCode) || string.IsNullOrWhiteSpace(course.CourseName))
+            // 1. Kiểm tra Validation
+            if (string.IsNullOrWhiteSpace(course.CourseName))
             {
-                return "Mã và Tên khóa học không được để trống.";
+                return "Tên khóa học không được để trống.";
             }
 
             // 2. Kiểm tra quy tắc nghiệp vụ (Business Rules)
-            // Kiểm tra xem Mã khóa học có bị trùng không
-            if (_courseDAO.IsCourseCodeExists(course.CourseCode))
+            
+            // Logic từ nhánh main: Tự động tạo mã nếu trống
+            if (string.IsNullOrWhiteSpace(course.CourseCode))
             {
-                return $"Mã khóa học '{course.CourseCode}' đã tồn tại trong hệ thống.";
+                course.CourseCode = "CRS" + DateTime.Now.Ticks.ToString().Substring(10);
+            }
+            else
+            {
+                // Logic từ nhánh feature/UI: Nếu mã được cung cấp, kiểm tra trùng
+                if (_courseDAO.IsCourseCodeExists(course.CourseCode))
+                {
+                    return $"Mã khóa học '{course.CourseCode}' đã tồn tại trong hệ thống.";
+                }
             }
 
-            // Kiểm tra Học phí
+            // Logic từ nhánh feature/UI: Kiểm tra Học phí
             if (course.TuitionFee < 0)
             {
                 return "Học phí không thể là số âm.";
             }
 
-            // 3. Nếu mọi thứ hợp lệ, gọi DAL để thực thi
+            // 3. Nếu mọi thứ hợp lệ, gọi DAL (theo kiểu trả về string của feature/UI)
             if (_courseDAO.Add(course))
             {
                 return "Thêm khóa học thành công.";
             }
             else
             {
-                // Lỗi từ tầng DAL (lỗi kết nối, lỗi CSDL...)
                 return "Thêm thất bại do lỗi hệ thống (DAL).";
             }
         }
-        // UPDATE: Cập nhật khóa học
+
+        // UPDATE: Cập nhật khóa học (Giữ phiên bản feature/UI vì chi tiết hơn)
         public string UpdateCourse(Course course)
         {
             if (course == null) return "Dữ liệu khóa học không hợp lệ.";
@@ -83,19 +103,16 @@ namespace Student_manager.BLL
 
             try
             {
-                // Lấy bản ghi hiện tại từ DB để debug / so sánh
                 var existing = _courseDAO.GetById(course.CourseId);
                 if (existing == null)
                     return "Không tìm thấy khóa học cần cập nhật.";
 
-                // Debug logs (xem output window hoặc console)
                 Console.WriteLine($"Updating CourseId={course.CourseId}, existingCode='{existing.CourseCode}', newCode='{course.CourseCode}'");
 
-                // Nếu mã thay đổi thì kiểm tra trùng (loại trừ chính CourseId)
+                // Logic kiểm tra trùng mã (cả hai nhánh đều có)
                 bool codeChanged = !string.Equals(existing.CourseCode?.Trim(), course.CourseCode?.Trim(), StringComparison.OrdinalIgnoreCase);
                 if (codeChanged)
                 {
-                    // Sử dụng overload có excludeCourseId để loại trừ chính bản ghi đang sửa
                     if (_courseDAO.IsCourseCodeExists(course.CourseCode, course.CourseId))
                     {
                         return $"Mã khóa học '{course.CourseCode}' đã bị trùng với khóa học khác.";
@@ -110,19 +127,15 @@ namespace Student_manager.BLL
             }
             catch (Exception ex)
             {
-                // Log và trả thông báo chung
                 Console.WriteLine("Error in UpdateCourse: " + ex);
                 return "Lỗi khi cập nhật khóa học: " + ex.Message;
             }
         }
-        // DELETE: Xóa khóa học
+
+        // DELETE: Xóa khóa học (Giữ phiên bản feature/UI)
         public string DeleteCourse(int courseId)
         {
-            // Ví dụ về Business Rule: Không cho xóa khóa học nếu có sinh viên đang đăng ký.
-            // if (_studentDAO.CountStudentsInCourse(courseId) > 0)
-            // {
-            //     return "Không thể xóa khóa học này vì có sinh viên đang theo học.";
-            // }
+            // if (_studentDAO.CountStudentsInCourse(courseId) > 0) { ... }
 
             if (_courseDAO.Delete(courseId))
             {
@@ -135,4 +148,3 @@ namespace Student_manager.BLL
         }
     }
 }
-
