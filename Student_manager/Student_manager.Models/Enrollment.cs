@@ -13,5 +13,7 @@ namespace Student_manager.Models
         public int ClassId { get; set; }
         public DateTime EnrollmentDate { get; set; }
         public string Status { get; set; }
+
+        public Student Student { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Student_manager.Models;
 
 namespace Student_manager.BLL
 {
