@@ -14,5 +14,6 @@ namespace Student_manager.Models
         public string Description { get; set; }
         public string Duration { get; set; }
         public decimal TuitionFee { get; set; }
+        public int? Credits { get; set; }
     }
 }

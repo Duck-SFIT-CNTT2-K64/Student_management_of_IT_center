@@ -86,5 +86,32 @@ namespace Student_manager.DAL
 
             return _db.DocBang(sql);
         }
+
+        // --- NEW: return totals summary used by UI (frmHome expects .TotalFee and .AmountPaid)
+        public TuitionSummary GetTotals()
+        {
+            try
+            {
+                string sql = @"SELECT 
+                                   ISNULL(SUM(TotalFee), 0) AS TotalFee,
+                                   ISNULL(SUM(AmountPaid), 0) AS AmountPaid
+                               FROM Tuitions";
+
+                DataTable dt = _db.DocBang(sql);
+                if (dt.Rows.Count > 0)
+                {
+                    return new TuitionSummary
+                    {
+                        TotalFee = dt.Rows[0]["TotalFee"] == DBNull.Value ? 0 : Convert.ToDecimal(dt.Rows[0]["TotalFee"]),
+                        AmountPaid = dt.Rows[0]["AmountPaid"] == DBNull.Value ? 0 : Convert.ToDecimal(dt.Rows[0]["AmountPaid"])
+                    };
+                }
+            }
+            catch
+            {
+                // swallow and return zeros to avoid crashing UI; consider logging
+            }
+            return new TuitionSummary { TotalFee = 0m, AmountPaid = 0m };
+        }
     }
 }

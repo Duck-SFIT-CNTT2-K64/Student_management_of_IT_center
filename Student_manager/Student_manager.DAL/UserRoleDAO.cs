@@ -25,7 +25,7 @@ namespace Student_manager.DAL
         {
             // Use parameterized query to prevent SQL injection
             string sql = "SELECT * FROM Users WHERE Username = @username";
-            using (SqlConnection conn = new SqlConnection(_db.ConnectionString))
+            using (SqlConnection conn = new SqlConnection(DataProcesser.ConnectionString))
             using (SqlCommand cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.AddWithValue("@username", username);

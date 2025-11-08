@@ -12,8 +12,6 @@ namespace Student_manager.BLL
 {
     public class EnrollmentService
     {
-
-
         private readonly StudentDAO _studentDAO;
         private readonly ClassDAO _classDAO;
         private readonly CourseDAO _courseDAO;
@@ -31,7 +29,6 @@ namespace Student_manager.BLL
 
         public bool EnrollStudent(string studentCode, string classCode, out string errorMessage)
         {
-            
             if (string.IsNullOrWhiteSpace(studentCode) || string.IsNullOrWhiteSpace(classCode))
             {
                 errorMessage = "Student ID and Class ID are required.";
@@ -47,17 +44,14 @@ namespace Student_manager.BLL
             var course = _courseDAO.GetCourseById(cls.CourseId);
             if (course == null) { errorMessage = "Course fee not found."; return false; }
 
-            
             using (SqlConnection conn = SqlHelper.GetConnection())
             {
                 conn.Open();
                 SqlTransaction trans = conn.BeginTransaction();
                 try
                 {
-                    
                     int newEnrollmentId = _enrollmentDAO.AddEnrollment(student.StudentId, cls.ClassId, conn, trans);
 
-                    
                     DateTime dueDate = DateTime.Now.AddDays(15);
                     _tuitionDAO.AddTuition(newEnrollmentId, course.TuitionFee, dueDate, conn, trans);
 
@@ -73,10 +67,23 @@ namespace Student_manager.BLL
                 }
             }
         }
+
         public DataTable GetEnrollmentList(string studentCode, string classCode)
         {
-            
             return _enrollmentDAO.SearchEnrollments(studentCode, classCode);
+        }
+
+        public Enrollment GetById(int id)
+        {
+            return _enrollmentDAO.GetById(id);
+        }
+
+        public int GetFirstEnrollmentIdByClass(int classId)
+        {
+            // if DAO had a direct helper, call it; otherwise pick first from GetByClassId
+            var list = _enrollmentDAO.GetByClassId(classId);
+            var first = list.FirstOrDefault();
+            return first == null ? -1 : first.EnrollmentId;
         }
     }
 }

@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using Student_manager.BLL;
+using System.Linq;
 
 namespace Student_manager.UI
 {
@@ -326,25 +328,43 @@ namespace Student_manager.UI
 
             try
             {
-                bool success = (username == "admin" && password == "admin");
+                var userService = new UserService();
+                var user = userService.Authenticate(username, password);
 
-                if (success)
+                if (user != null)
                 {
-                    var dr = MessageBox.Show("Đăng nhập thành công", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    if (dr == DialogResult.OK)
+                    MessageBox.Show("Đăng nhập thành công", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    this.Hide();
+                    // Pass username to dashboard so header shows the username
+                    using (var dash = new frmDashBoard(user.Username ?? username, user.RoleId.HasValue ? ("RoleId=" + user.RoleId.Value) : "User"))
                     {
-                        this.Hide();
-                        using (var dash = new frmDashBoard(username, "Admin"))
-                        {
-                            dash.ShowDialog();
-                        }
-                        this.Close();
+                        dash.ShowDialog();
                     }
+                    this.Close();
                 }
                 else
                 {
-                    errorPasswordLabel.Text = "Tài khoản hoặc mật khẩu không đúng";
-                    errorPasswordLabel.Visible = true;
+                    // improved diagnostics: check if username exists and whether DB stores bcrypt hash
+                    var existing = userService.GetAllUsers()?.FirstOrDefault(u => string.Equals(u.Username, username, StringComparison.OrdinalIgnoreCase));
+                    if (existing != null && !string.IsNullOrEmpty(existing.PasswordHash) &&
+                        (existing.PasswordHash.StartsWith("$2a$") || existing.PasswordHash.StartsWith("$2y$") || existing.PasswordHash.StartsWith("$2b$")))
+                    {
+                        if (!UserService.IsBcryptAvailable())
+                        {
+                            MessageBox.Show("Tài khoản dùng bcrypt-hash nhưng thư viện BCrypt.Net chưa được cài trong ứng dụng.\n\nHãy cài NuGet package 'BCrypt.Net-Next' cho project Student_manager.UI rồi Rebuild.", "Authentication error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            errorPasswordLabel.Text = "Tài khoản hoặc mật khẩu không đúng";
+                            errorPasswordLabel.Visible = true;
+                        }
+                    }
+                    else
+                    {
+                        errorPasswordLabel.Text = "Tài khoản hoặc mật khẩu không đúng";
+                        errorPasswordLabel.Visible = true;
+                    }
                     txtPassword.Focus();
                 }
             }

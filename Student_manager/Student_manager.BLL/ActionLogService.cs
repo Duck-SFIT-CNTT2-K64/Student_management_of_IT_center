@@ -9,7 +9,6 @@ namespace Student_manager.BLL
         private readonly ActionLogDAO _dao = new ActionLogDAO();
 
         /// <summary>
-        /// Insert an action log entry. Returns newly created LogId or -1 on failure.
         /// </summary>
         public int Log(int userId, string action, string details = null)
         {

@@ -24,14 +24,12 @@ namespace Student_manager.BLL
         {
             using (SHA256 sha256Hash = SHA256.Create())
             {
-                // Tính toán hash - trả về 1 mảng byte
                 byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
 
-                // Chuyển mảng byte thành chuỗi hex
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < bytes.Length; i++)
                 {
-                    builder.Append(bytes[i].ToString("x2")); // "x2" là định dạng hex
+                    builder.Append(bytes[i].ToString("x2"));
                 }
                 return builder.ToString();
             }
@@ -39,7 +37,6 @@ namespace Student_manager.BLL
 
         public bool CreateUser(string username, string password, string fullName, string email, string phoneNumber, int roleId, out string errorMessage)
         {
-            // 1. Validate
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(fullName))
             {
                 errorMessage = "Username, Password, and FullName are required.";
@@ -51,10 +48,8 @@ namespace Student_manager.BLL
                 return false;
             }
 
-            // 2. Hash mật khẩu (Dùng SHA256)
             string passwordHash = HashPasswordSHA256(password);
 
-            // 3. Transaction
             using (SqlConnection conn = SqlHelper.GetConnection())
             {
                 conn.Open();

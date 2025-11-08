@@ -3,33 +3,34 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-﻿using Student_manager.Models;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
+using Student_manager.Models;
 
 namespace Student_manager.DAL
 {
     public class EnrollmentDAO
     {
-        private DataProcesser _db = new DataProcesser();
+        private readonly DataProcesser _db = new DataProcesser();
+
+        // Adds enrollment within an existing connection/transaction and returns new identity (int)
         public int AddEnrollment(int studentId, int classId, SqlConnection conn, SqlTransaction trans)
         {
-            string sql = string.Format(
-                "INSERT INTO Enrollments (StudentId, ClassId, Status) VALUES ({0}, {1}, 'Enrolled');" +
-                "SELECT SCOPE_IDENTITY();",
-                studentId,
-                classId
-            );
+            const string sql = @"
+                INSERT INTO Enrollments (StudentId, ClassId, Status, EnrollmentDate)
+                VALUES (@studentId, @classId, @status, @enrollmentDate);
+                SELECT CAST(SCOPE_IDENTITY() AS INT);";
 
-            using (SqlCommand cmd = new SqlCommand(sql, conn, trans))
+            using (var cmd = new SqlCommand(sql, conn, trans))
             {
+                cmd.Parameters.AddWithValue("@studentId", studentId);
+                cmd.Parameters.AddWithValue("@classId", classId);
+                cmd.Parameters.AddWithValue("@status", "Enrolled");
+                cmd.Parameters.AddWithValue("@enrollmentDate", DateTime.Now);
 
-                return Convert.ToInt32(cmd.ExecuteScalar());
+                var result = cmd.ExecuteScalar();
+                return (result == null || result == DBNull.Value) ? -1 : Convert.ToInt32(result);
             }
         }
+
         public DataTable SearchEnrollments(string studentCode, string classCode)
         {
             string sql = @"SELECT 
@@ -56,16 +57,22 @@ namespace Student_manager.DAL
             sql += " ORDER BY s.StudentCode ASC";
 
             return _db.DocBang(sql);
-        // 🔹 Lấy toàn bộ danh sách ghi danh
+        }
+
+        // 🔹 Lấy toàn bộ danh sách ghi danh (Student populated)
         public IEnumerable<Enrollment> GetAll()
         {
             var list = new List<Enrollment>();
+            const string sql = @"
+                SELECT e.EnrollmentId, e.StudentId, e.ClassId, e.EnrollmentDate, e.Status,
+                       s.StudentId AS S_StudentId, s.StudentCode, s.FullName, s.DateOfBirth, s.Gender, s.Address, s.PhoneNumber, s.Email
+                FROM Enrollments e
+                LEFT JOIN Students s ON e.StudentId = s.StudentId
+                ORDER BY e.EnrollmentId";
+
             using (var conn = SqlHelper.GetConnection())
-            using (var cmd = conn.CreateCommand())
+            using (var cmd = new SqlCommand(sql, conn))
             {
-                cmd.CommandText = @"SELECT EnrollmentId, StudentId, ClassId, EnrollmentDate, Status 
-                                    FROM Enrollments
-                                    ORDER BY EnrollmentId";
                 conn.Open();
                 using (var rdr = cmd.ExecuteReader())
                 {
@@ -78,37 +85,45 @@ namespace Student_manager.DAL
             return list;
         }
 
-        // 🔹 Lấy ghi danh theo ID
+        // 🔹 Lấy ghi danh theo ID (Student populated)
         public Enrollment GetById(int enrollmentId)
         {
-            Enrollment e = null;
+            const string sql = @"
+                SELECT e.EnrollmentId, e.StudentId, e.ClassId, e.EnrollmentDate, e.Status,
+                       s.StudentId AS S_StudentId, s.StudentCode, s.FullName, s.DateOfBirth, s.Gender, s.Address, s.PhoneNumber, s.Email
+                FROM Enrollments e
+                LEFT JOIN Students s ON e.StudentId = s.StudentId
+                WHERE e.EnrollmentId = @id";
+
             using (var conn = SqlHelper.GetConnection())
-            using (var cmd = conn.CreateCommand())
+            using (var cmd = new SqlCommand(sql, conn))
             {
-                cmd.CommandText = @"SELECT EnrollmentId, StudentId, ClassId, EnrollmentDate, Status 
-                                    FROM Enrollments
-                                    WHERE EnrollmentId = @id";
                 cmd.Parameters.AddWithValue("@id", enrollmentId);
                 conn.Open();
                 using (var rdr = cmd.ExecuteReader())
                 {
                     if (rdr.Read())
-                        e = MapEnrollment(rdr);
+                        return MapEnrollment(rdr);
                 }
             }
-            return e;
+            return null;
         }
 
-        // 🔹 Lấy danh sách ghi danh theo lớp
+        // 🔹 Lấy danh sách ghi danh theo lớp (Student populated)
         public IEnumerable<Enrollment> GetByClassId(int classId)
         {
             var list = new List<Enrollment>();
+            const string sql = @"
+                SELECT e.EnrollmentId, e.StudentId, e.ClassId, e.EnrollmentDate, e.Status,
+                       s.StudentId AS S_StudentId, s.StudentCode, s.FullName, s.DateOfBirth, s.Gender, s.Address, s.PhoneNumber, s.Email
+                FROM Enrollments e
+                LEFT JOIN Students s ON e.StudentId = s.StudentId
+                WHERE e.ClassId = @cid
+                ORDER BY s.FullName";
+
             using (var conn = SqlHelper.GetConnection())
-            using (var cmd = conn.CreateCommand())
+            using (var cmd = new SqlCommand(sql, conn))
             {
-                cmd.CommandText = @"SELECT EnrollmentId, StudentId, ClassId, EnrollmentDate, Status 
-                                    FROM Enrollments
-                                    WHERE ClassId = @cid";
                 cmd.Parameters.AddWithValue("@cid", classId);
                 conn.Open();
                 using (var rdr = cmd.ExecuteReader())
@@ -120,16 +135,21 @@ namespace Student_manager.DAL
             return list;
         }
 
-        // 🔹 Lấy danh sách ghi danh theo sinh viên
+        // 🔹 Lấy danh sách ghi danh theo sinh viên (Student populated)
         public IEnumerable<Enrollment> GetByStudentId(int studentId)
         {
             var list = new List<Enrollment>();
+            const string sql = @"
+                SELECT e.EnrollmentId, e.StudentId, e.ClassId, e.EnrollmentDate, e.Status,
+                       s.StudentId AS S_StudentId, s.StudentCode, s.FullName, s.DateOfBirth, s.Gender, s.Address, s.PhoneNumber, s.Email
+                FROM Enrollments e
+                LEFT JOIN Students s ON e.StudentId = s.StudentId
+                WHERE e.StudentId = @sid
+                ORDER BY e.EnrollmentDate DESC";
+
             using (var conn = SqlHelper.GetConnection())
-            using (var cmd = conn.CreateCommand())
+            using (var cmd = new SqlCommand(sql, conn))
             {
-                cmd.CommandText = @"SELECT EnrollmentId, StudentId, ClassId, EnrollmentDate, Status 
-                                    FROM Enrollments
-                                    WHERE StudentId = @sid";
                 cmd.Parameters.AddWithValue("@sid", studentId);
                 conn.Open();
                 using (var rdr = cmd.ExecuteReader())
@@ -180,7 +200,7 @@ namespace Student_manager.DAL
                     WHERE EnrollmentId = @id";
                 cmd.Parameters.AddWithValue("@sid", e.StudentId);
                 cmd.Parameters.AddWithValue("@cid", e.ClassId);
-                cmd.Parameters.AddWithValue("@edate", e.EnrollmentDate);
+                cmd.Parameters.AddWithValue("@edate", e.EnrollmentDate ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@status", (object)e.Status ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@id", e.EnrollmentId);
                 conn.Open();
@@ -201,21 +221,39 @@ namespace Student_manager.DAL
             }
         }
 
-        // 🧩 Hàm dùng chung để map DataReader → đối tượng
+        // 🧩 Hàm dùng chung để map DataReader → đối tượng (đã bao gồm Student mapping)
         private Enrollment MapEnrollment(SqlDataReader rdr)
         {
-            return new Enrollment
+            var enrollment = new Enrollment
             {
                 EnrollmentId = rdr.GetInt32(rdr.GetOrdinal("EnrollmentId")),
                 StudentId = rdr.GetInt32(rdr.GetOrdinal("StudentId")),
                 ClassId = rdr.GetInt32(rdr.GetOrdinal("ClassId")),
-                EnrollmentDate = rdr.IsDBNull(rdr.GetOrdinal("EnrollmentDate"))
-                    ? DateTime.MinValue
-                    : rdr.GetDateTime(rdr.GetOrdinal("EnrollmentDate")),
-                Status = rdr.IsDBNull(rdr.GetOrdinal("Status"))
-                    ? null
-                    : rdr.GetString(rdr.GetOrdinal("Status"))
+                EnrollmentDate = rdr.IsDBNull(rdr.GetOrdinal("EnrollmentDate")) ? (DateTime?)null : rdr.GetDateTime(rdr.GetOrdinal("EnrollmentDate")),
+                Status = rdr.IsDBNull(rdr.GetOrdinal("Status")) ? null : rdr.GetString(rdr.GetOrdinal("Status"))
             };
+
+            // Map student info if present
+            if (rdr.GetOrdinal("S_StudentId") >= 0 && !rdr.IsDBNull(rdr.GetOrdinal("S_StudentId")))
+            {
+                enrollment.Student = new Student
+                {
+                    StudentId = rdr.GetInt32(rdr.GetOrdinal("S_StudentId")),
+                    StudentCode = rdr.IsDBNull(rdr.GetOrdinal("StudentCode")) ? null : rdr.GetString(rdr.GetOrdinal("StudentCode")),
+                    FullName = rdr.IsDBNull(rdr.GetOrdinal("FullName")) ? null : rdr.GetString(rdr.GetOrdinal("FullName")),
+                    DateOfBirth = rdr.IsDBNull(rdr.GetOrdinal("DateOfBirth")) ? (DateTime?)null : rdr.GetDateTime(rdr.GetOrdinal("DateOfBirth")),
+                    Gender = rdr.IsDBNull(rdr.GetOrdinal("Gender")) ? null : rdr.GetString(rdr.GetOrdinal("Gender")),
+                    Address = rdr.IsDBNull(rdr.GetOrdinal("Address")) ? null : rdr.GetString(rdr.GetOrdinal("Address")),
+                    PhoneNumber = rdr.IsDBNull(rdr.GetOrdinal("PhoneNumber")) ? null : rdr.GetString(rdr.GetOrdinal("PhoneNumber")),
+                    Email = rdr.IsDBNull(rdr.GetOrdinal("Email")) ? null : rdr.GetString(rdr.GetOrdinal("Email"))
+                };
+            }
+            else
+            {
+                enrollment.Student = null;
+            }
+
+            return enrollment;
         }
     }
 }

@@ -11,7 +11,6 @@ namespace Student_manager.BLL
         private readonly NotificationDAO _dao = new NotificationDAO();
         private readonly UserDAO _userDao = new UserDAO();
 
-        // Gửi thông báo + tạo bản ghi người nhận
         public bool SendNotification(Notification n, List<int> recipientIds)
         {
             if (n == null || recipientIds == null || recipientIds.Count == 0)
@@ -28,15 +27,14 @@ namespace Student_manager.BLL
             return true;
         }
 
-        // Lấy danh sách người nhận theo Role (theo RoleId)
         public List<int> GetRecipientsByRole(string roleName)
         {
             int roleId = 0;
             switch (roleName.ToLower())
             {
-                case "user": roleId = 2; break; // Giáo vụ
-                case "teacher": roleId = 3; break; // Giảng viên
-                case "student": roleId = 5; break; // Sinh viên
+                case "user": roleId = 2; break;
+                case "teacher": roleId = 3; break; 
+                case "student": roleId = 5; break; 
                 default: return new List<int>();
             }
 
@@ -45,14 +43,5 @@ namespace Student_manager.BLL
                         .Select(u => u.UserId)
                         .ToList();
         }
-
-        //// Xóa thông báo và các người nhận liên quan
-        //public bool DeleteNotification(int notificationId)
-        //{
-        //    if (notificationId <= 0)
-        //        throw new ArgumentException("NotificationId không hợp lệ");
-
-        //    return _dao.DeleteNotification(notificationId);
-        //}
     }
 }

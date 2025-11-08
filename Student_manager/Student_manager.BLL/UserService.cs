@@ -2,6 +2,8 @@
 using Student_manager.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace Student_manager.BLL
 {
@@ -21,7 +23,6 @@ namespace Student_manager.BLL
             return _dao.GetById(id);
         }
 
-        // new helper for UI validation
         public bool EmailExists(string email, int? excludeUserId = null)
         {
             return _dao.ExistsEmail(email, excludeUserId);
@@ -32,7 +33,6 @@ namespace Student_manager.BLL
             if (u == null) throw new ArgumentNullException(nameof(u));
             if (string.IsNullOrWhiteSpace(u.Username)) throw new ArgumentException("Username required");
 
-            // auto-generate fallback email if missing (prevents runtime "Email required" when UI omits email)
             if (string.IsNullOrWhiteSpace(u.Email))
             {
                 u.Email = (u.Username ?? "user") + "@local";
@@ -92,6 +92,94 @@ namespace Student_manager.BLL
                 _actionLog.Log(performedByUserId, "DeleteUser", $"Deleted user {u.Username} (Id={id})");
             }
             return ok;
+        }
+
+        public User Authenticate(string username, string plainPassword)
+        {
+            if (string.IsNullOrWhiteSpace(username) || plainPassword == null) return null;
+
+            var user = _dao.GetByUsername(username);
+            if (user == null) return null;
+
+            var stored = user.PasswordHash ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(stored)) return null;
+
+            if (stored.StartsWith("$2a$") || stored.StartsWith("$2y$") || stored.StartsWith("$2b$"))
+            {
+                if (BcryptReflectionVerify(plainPassword, stored))
+                {
+                    return user;
+                }
+                return null;
+            }
+            else
+            {
+                var hashed = PasswordHelper.HashSha256(plainPassword);
+                if (string.Equals(hashed, stored, StringComparison.OrdinalIgnoreCase))
+                    return user;
+            }
+
+            return null;
+        }
+
+        private static bool BcryptReflectionVerify(string password, string hash)
+        {
+            try
+            {
+                var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+                foreach (var asm in assemblies)
+                {
+                    Type bcryptType = null;
+                    try { bcryptType = asm.GetType("BCrypt.Net.BCrypt") ?? asm.GetType("BCrypt.BCrypt"); } catch { bcryptType = null; }
+                    if (bcryptType == null) continue;
+                    var method = bcryptType.GetMethod("Verify", new Type[] { typeof(string), typeof(string) });
+                    if (method == null) continue;
+                    var res = method.Invoke(null, new object[] { password, hash });
+                    if (res is bool b) return b;
+                }
+            }
+            catch
+            {
+                // ignore
+            }
+            return false;
+        }
+
+        public static string BcryptReflectionHash(string password)
+        {
+            try
+            {
+                var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+                foreach (var asm in assemblies)
+                {
+                    Type bcryptType = null;
+                    try { bcryptType = asm.GetType("BCrypt.Net.BCrypt") ?? asm.GetType("BCrypt.BCrypt"); } catch { bcryptType = null; }
+                    if (bcryptType == null) continue;
+                    var method = bcryptType.GetMethod("HashPassword", new Type[] { typeof(string) });
+                    if (method == null) continue;
+                    var res = method.Invoke(null, new object[] { password });
+                    if (res is string s) return s;
+                }
+            }
+            catch
+            {
+            }
+            return null;
+        }
+
+        public static bool IsBcryptAvailable()
+        {
+            try
+            {
+                var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+                foreach (var asm in assemblies)
+                {
+                    var t = asm.GetType("BCrypt.Net.BCrypt") ?? asm.GetType("BCrypt.BCrypt");
+                    if (t != null) return true;
+                }
+            }
+            catch { }
+            return false;
         }
     }
 }

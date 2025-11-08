@@ -17,7 +17,6 @@ namespace Student_manager.UI
         private bool _editing = false;
         private DataTable _rolesDt;
 
-        // TODO: replace with actual current user id when you wire authentication
         private readonly int _currentUserId = 1;
 
         public frmAccount()
@@ -29,11 +28,9 @@ namespace Student_manager.UI
 
         private void FrmAccount_Load(object sender, EventArgs e)
         {
-            // local role mapping - update ids/names if different in your environment
             _rolesDt = new DataTable();
             _rolesDt.Columns.Add("Id", typeof(int));
             _rolesDt.Columns.Add("Name", typeof(string));
-            //_rolesDt.Columns.Add("Email",  typeof(string));
             _rolesDt.Rows.Add(1, "Admin");
             _rolesDt.Rows.Add(2, "Staff");
             _rolesDt.Rows.Add(3, "Viewer");
@@ -57,14 +54,10 @@ namespace Student_manager.UI
 
         private void FormatGrid()
         {
-            // hide internal columns that shouldn't show by default
             if (dgvAccounts.Columns.Contains("PasswordHash")) dgvAccounts.Columns["PasswordHash"].Visible = false;
-            //if (dgvAccounts.Columns.Contains("Email")) dgvAccounts.Columns["Email"].Visible = false;
             if (dgvAccounts.Columns.Contains("PhoneNumber")) dgvAccounts.Columns["PhoneNumber"].Visible = false;
             if (dgvAccounts.Columns.Contains("Status")) dgvAccounts.Columns["Status"].Visible = false;
             if (dgvAccounts.Columns.Contains("DateCreated")) dgvAccounts.Columns["DateCreated"].Visible = false;
-
-            // keep RoleId hidden and show friendly Role column instead (populated in DataBindingComplete)
             if (dgvAccounts.Columns.Contains("RoleId")) dgvAccounts.Columns["RoleId"].Visible = false;
 
             dgvAccounts.AutoResizeColumns();
@@ -72,7 +65,6 @@ namespace Student_manager.UI
 
         private void DgvAccounts_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            // ensure an unbound "Role" column exists and fill it from RoleId
             if (!dgvAccounts.Columns.Contains("Role"))
             {
                 var col = new DataGridViewTextBoxColumn { Name = "Role", HeaderText = "Role", ReadOnly = true };
@@ -167,7 +159,6 @@ namespace Student_manager.UI
         private bool IsValidEmailFormat(string email)
         {
             if (string.IsNullOrWhiteSpace(email)) return false;
-            // simple, readable regex that covers most real-world emails
             var pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             return Regex.IsMatch(email, pattern, RegexOptions.IgnoreCase);
         }
@@ -205,7 +196,6 @@ namespace Student_manager.UI
                 return;
             }
 
-            // uniqueness check
             int? excludeId = (_editingId == -1) ? (int?)null : _editingId;
             if (_service.EmailExists(email, excludeId))
             {
@@ -290,6 +280,66 @@ namespace Student_manager.UI
         private void dgvAccounts_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        // New: reset password handler
+        private void btnResetPassword_Click(object sender, EventArgs e)
+        {
+            if (dgvAccounts.SelectedRows.Count != 1)
+            {
+                MessageBox.Show("Please select one account to reset password.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            var u = dgvAccounts.SelectedRows[0].DataBoundItem as User;
+            if (u == null) return;
+
+            // Nút reset sẽ lấy txtNewPassword nếu có, ngược lại dùng mật khẩu mặc định
+            string newPlain = txtNewPassword.Text;
+            if (string.IsNullOrWhiteSpace(newPlain))
+            {
+                var dr = MessageBox.Show("No new password entered. Use default password 'P@ssw0rd123!' ?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dr != DialogResult.Yes) return;
+                newPlain = "P@ssw0rd123!";
+            }
+
+            var confirm = MessageBox.Show($"Reset password for user '{u.Username}' to the provided value?\n(You will be able to log in with the new password)", "Confirm Reset", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (confirm != DialogResult.Yes) return;
+
+            // Try bcrypt hash via reflection (preferred), otherwise fallback SHA256
+            string newHash = UserService.BcryptReflectionHash(newPlain);
+            string usedAlgo = "bcrypt";
+            if (string.IsNullOrEmpty(newHash))
+            {
+                newHash = PasswordHelper.HashSha256(newPlain);
+                usedAlgo = "SHA256 (fallback)";
+            }
+
+            // Save to user object and update
+            var existing = _users.FirstOrDefault(x => x.UserId == u.UserId);
+            if (existing != null)
+            {
+                existing.PasswordHash = newHash;
+                try
+                {
+                    var ok = _service.UpdateUser(existing, _currentUserId);
+                    if (ok)
+                    {
+                        MessageBox.Show($"Password reset successful. Algorithm: {usedAlgo}\nPlain password (not hashed): {newPlain}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        // clear field for safety
+                        txtNewPassword.Text = "";
+                        dgvAccounts.Refresh();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to update password in database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error updating password: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

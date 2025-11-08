@@ -62,7 +62,6 @@ namespace Student_manager.UI
         {
             try
             {
-                // ⚠️ Tạm thời hủy liên kết sự kiện SelectionChanged
                 dgvBangDiem.SelectionChanged -= dgvBangDiem_SelectionChanged;
 
                 var scores = _scoreService.GetScoresByEnrollment(enrollmentId).ToList();

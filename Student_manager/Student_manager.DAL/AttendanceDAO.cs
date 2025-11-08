@@ -8,7 +8,6 @@ namespace Student_manager.DAL
 {
     public class AttendanceDAO
     {
-        // 🔹 Lấy toàn bộ danh sách điểm danh
         public IEnumerable<Attendance> GetAll()
         {
             var list = new List<Attendance>();
@@ -37,7 +36,6 @@ namespace Student_manager.DAL
             return list;
         }
 
-        // 🔹 Lấy danh sách điểm danh theo EnrollmentId
         public IEnumerable<Attendance> GetByEnrollmentId(int enrollmentId)
         {
             var list = new List<Attendance>();
@@ -68,7 +66,6 @@ namespace Student_manager.DAL
             return list;
         }
 
-        // 🔹 Lấy chi tiết theo ID
         public Attendance GetById(int attendanceId)
         {
             using (var conn = SqlHelper.GetConnection())
@@ -97,7 +94,6 @@ namespace Student_manager.DAL
             return null;
         }
 
-        // 🔹 Thêm bản ghi điểm danh mới
         public int Insert(Attendance a)
         {
             if (a == null) throw new ArgumentNullException(nameof(a));
@@ -118,7 +114,6 @@ namespace Student_manager.DAL
             }
         }
 
-        // 🔹 Cập nhật điểm danh
         public bool Update(Attendance a)
         {
             if (a == null) throw new ArgumentNullException(nameof(a));
@@ -142,7 +137,6 @@ namespace Student_manager.DAL
             }
         }
 
-        // 🔹 Xóa bản ghi điểm danh
         public bool Delete(int attendanceId)
         {
             using (var conn = SqlHelper.GetConnection())
@@ -155,7 +149,6 @@ namespace Student_manager.DAL
             }
         }
 
-        // 🔹 Kiểm tra trùng ngày học cho cùng Enrollment
         public bool ExistsByDate(int enrollmentId, DateTime sessionDate)
         {
             using (var conn = SqlHelper.GetConnection())
@@ -169,7 +162,6 @@ namespace Student_manager.DAL
             }
         }
 
-        // 🔹 Lấy EnrollmentId đầu tiên trong lớp (phục vụ demo frmStudy)
         public int GetFirstEnrollmentIdByClass(int classId)
         {
             using (var conn = SqlHelper.GetConnection())
@@ -202,8 +194,5 @@ namespace Student_manager.DAL
             }
         }
         
-        
-
-
     }
 }

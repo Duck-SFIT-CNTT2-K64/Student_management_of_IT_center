@@ -63,7 +63,6 @@ namespace Student_manager.DAL
             return list;
         }
 
-        // 🔹 Lấy danh sách lớp theo CourseId
         public IEnumerable<Class> GetByCourseId(int courseId)
         {
             var list = new List<Class>();
@@ -96,7 +95,6 @@ namespace Student_manager.DAL
             return list;
         }
 
-        // 🔹 Lấy thông tin lớp theo ID
         public Class GetById(int classId)
         {
             using (var conn = SqlHelper.GetConnection())
@@ -127,7 +125,6 @@ namespace Student_manager.DAL
             return null;
         }
 
-        // 🔹 Thêm lớp mới
         public int Insert(Class c)
         {
             if (c == null) throw new ArgumentNullException(nameof(c));
@@ -153,7 +150,6 @@ namespace Student_manager.DAL
             }
         }
 
-        // 🔹 Cập nhật thông tin lớp
         public bool Update(Class c)
         {
             if (c == null) throw new ArgumentNullException(nameof(c));
@@ -182,7 +178,6 @@ namespace Student_manager.DAL
             }
         }
 
-        // 🔹 Xóa lớp
         public bool Delete(int classId)
         {
             using (var conn = SqlHelper.GetConnection())

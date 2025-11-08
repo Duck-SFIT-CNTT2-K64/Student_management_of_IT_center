@@ -15,12 +15,9 @@ namespace Student_manager.Services
 
         public int AddRoom(Room r)
         {
-            // 1. Kiểm tra Business Logic
             if (string.IsNullOrWhiteSpace(r.RoomName) || r.Capacity <= 0)
-                return 0; // Trả về 0 nếu validation thất bại
+                return 0; 
 
-            // 2. Gọi DAO và trả về RoomId mới
-            // Giả định _roomsDAO.AddRoom() đã được sửa để trả về int ID
             return _roomsDAO.AddRoom(r);
         }
 

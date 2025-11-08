@@ -10,7 +10,6 @@ namespace Student_manager.Models
     {
         public int UserId { get; set; }
 
-        // numeric FK to Roles (your DB schema)
         public int? RoleId { get; set; }
 
         public string Username { get; set; }

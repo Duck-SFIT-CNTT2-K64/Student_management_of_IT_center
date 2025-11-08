@@ -16,7 +16,7 @@ namespace Student_manager.DAL
             string sql = @"SELECT a.LogId, u.Username, a.Action, a.Details, a.LogDate 
                            FROM ActionLogs a
                            JOIN Users u ON a.UserId = u.UserId
-                           ORDER BY a.LogId ASC"; // <-- Đã sửa
+                           ORDER BY a.LogId ASC";
 
             return _db.DocBang(sql);
         }

@@ -73,6 +73,40 @@ namespace Student_manager.DAL
             return null;
         }
 
+        // New: get user by username
+        public User GetByUsername(string username)
+        {
+            if (string.IsNullOrWhiteSpace(username)) return null;
+            using (var conn = SqlHelper.GetConnection())
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = @"
+                    SELECT UserId, RoleId, Username, PasswordHash, FullName, Email, PhoneNumber, Status, DateCreated
+                    FROM Users WHERE Username = @u";
+                cmd.Parameters.AddWithValue("@u", username);
+                conn.Open();
+                using (var rdr = cmd.ExecuteReader())
+                {
+                    if (rdr.Read())
+                    {
+                        return new User
+                        {
+                            UserId = rdr.GetInt32(rdr.GetOrdinal("UserId")),
+                            RoleId = rdr.IsDBNull(rdr.GetOrdinal("RoleId")) ? (int?)null : rdr.GetInt32(rdr.GetOrdinal("RoleId")),
+                            Username = rdr.IsDBNull(rdr.GetOrdinal("Username")) ? null : rdr.GetString(rdr.GetOrdinal("Username")),
+                            PasswordHash = rdr.IsDBNull(rdr.GetOrdinal("PasswordHash")) ? null : rdr.GetString(rdr.GetOrdinal("PasswordHash")),
+                            FullName = rdr.IsDBNull(rdr.GetOrdinal("FullName")) ? null : rdr.GetString(rdr.GetOrdinal("FullName")),
+                            Email = rdr.IsDBNull(rdr.GetOrdinal("Email")) ? null : rdr.GetString(rdr.GetOrdinal("Email")),
+                            PhoneNumber = rdr.IsDBNull(rdr.GetOrdinal("PhoneNumber")) ? null : rdr.GetString(rdr.GetOrdinal("PhoneNumber")),
+                            Status = rdr.IsDBNull(rdr.GetOrdinal("Status")) ? null : rdr.GetString(rdr.GetOrdinal("Status")),
+                            DateCreated = rdr.IsDBNull(rdr.GetOrdinal("DateCreated")) ? DateTime.MinValue : rdr.GetDateTime(rdr.GetOrdinal("DateCreated"))
+                        };
+                    }
+                }
+            }
+            return null;
+        }
+
         // existence checks used by BLL for uniqueness validation
         public bool ExistsUsername(string username, int? excludeUserId = null)
         {
