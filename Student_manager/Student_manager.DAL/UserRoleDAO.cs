@@ -23,9 +23,19 @@ namespace Student_manager.DAL
         }
         public DataRow GetUserByUsername(string username)
         {
-            string sql = "SELECT * FROM Users WHERE Username = '" + username.Replace("'", "''") + "'";
-            DataTable dt = _db.DocBang(sql);
-            return (dt.Rows.Count > 0) ? dt.Rows[0] : null;
+            // Use parameterized query to prevent SQL injection
+            string sql = "SELECT * FROM Users WHERE Username = @username";
+            using (SqlConnection conn = new SqlConnection(_db.ConnectionString))
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                cmd.Parameters.AddWithValue("@username", username);
+                using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+                    return (dt.Rows.Count > 0) ? dt.Rows[0] : null;
+                }
+            }
         }
         public bool AddUser(string username, string passwordHash, string fullName, string email,string phoneNumber, int roleId, SqlConnection conn, SqlTransaction trans)
         {
